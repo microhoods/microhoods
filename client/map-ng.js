@@ -93,8 +93,10 @@ var defaultShape = {
 };
 
 //set map height
-var height=document.body.scrollHeight-68;
+var height=document.body.scrollHeight*.93;
 document.getElementById("map").style.height=height.toString()+'px'
+var topPos=document.body.scrollHeight*.05;
+document.getElementById("map").style.top=topPos.toString()+'px'
 
 //initialize map to SF
 var map = L.map('map', {zoomControl: false, maxBounds: [[37.7, -122.65], [37.85, -122.3]], minZoom: 12}).setView([37.789, -122.414], 14);
