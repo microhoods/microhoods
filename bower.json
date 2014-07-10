@@ -1,0 +1,10 @@
+{
+  "name": "my-app",
+  "version": "0.0.1",
+  "dependencies": {
+    "bootstrap-css-only": "*",
+    "angular": "*",
+    "angular-cookies": "*",
+    "angular-ui-router": "*"
+  }
+}

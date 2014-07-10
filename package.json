@@ -1,0 +1,30 @@
+{
+  "name": "package",
+  "version": "0.0.0",
+  "dependencies": {
+    "connect": "^3.0.1",
+    "http": "0.0.0",
+    "jade": "^1.3.1",
+    "mongodb": "^1.4.7",
+    "q": "*",
+    "sentiment": "^1.0.1",
+    "underscore": "^1.6.0"
+  },
+  "devDependencies": {
+    "gulp": "*",
+    "gulp-bower": "*",
+    "morgan": "*",
+    "body-parser": "*",
+    "tiny-lr": "*",
+    "gulp-jshint": "*",
+    "gulp-notify": "*",
+    "gulp-livereload": "*",
+    "gulp-nodemon": "*",
+    "gulp-plumber": "*",
+    "gulp-task-listing": "*",
+    "jshint-stylish": "*",
+    "gulp-concat": "*",
+    "gulp-uglify": "*",
+    "gulp-stylus": "*"
+  }
+}
