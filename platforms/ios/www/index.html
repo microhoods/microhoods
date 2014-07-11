@@ -1,34 +1,66 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="map-app" ng-controller="map-controller">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title></title>
+    <meta charset='utf8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width">
+    <title>Microhoods</title>
+    <link href='http://fonts.googleapis.com/css?family=Lato:300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/app.css"/>
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
 
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+    <link rel='stylesheet' href='http://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.css' />
+    <script src='http://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.2.3/leaflet.draw.js'></script>
+    <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-label/v0.2.1/leaflet.label.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-label/v0.2.1/leaflet.label.css' rel='stylesheet' />
 
-    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
-    <link href="css/ionic.app.css" rel="stylesheet">
-    -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
 
-    <!-- ionic/angularjs js -->
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
-
-    <!-- cordova script (this will be a 404 during development) -->
-    <script src="cordova.js"></script>
-
-    <!-- your app's js -->
-    <script src="js/app.js"></script>
   </head>
-  <body ng-app="starter">
+  <body>
 
-    <ion-pane>
-      <ion-header-bar class="bar-stable">
-        <h1 class="title">Ionic Blank Starter</h1>
-      </ion-header-bar>
-      <ion-content>
-      </ion-content>
-    </ion-pane>
+    <div ui-view></div>
+
+    <div class='buttons' >
+      <div id='addTag' ng-click='addTag()'>Add Tag</div>
+      <div id='addLabel'>Tag your area</div>
+      <input type='text' ng-model='tag' id='tagInput' placeholder='enter a microhood tag here'/>
+      <div id='saveTags' ng-click='saveTags()'>Save Tags</div>
+      <div id='saveLabel'>Save areas and tags</div>
+      <div id='title'>MICROHOODS</div>
+      <div id='directions'>Draw areas to create your own microhoods. Add descriptive tags to each microhood to personalize your map. Save tags, and load community map to see what the most popular tags and overall sentiment is for each microhood. </div>
+      <div id='personalMap' ng-click='personalSwitch()'>Personal Map</div>
+      <div id='personalLabel'>Create your own microhoods</div>
+      <div id='communityMap' ng-click='communitySwitch()'>Community Map</div>
+      <div id='communityLabel'>See community microhoods</div>
+
+    </div>
+
+
+    <div id="map"></div>
+    
+    <img id='questionMark' src="question-mark.png">
+
+    <div id='about'>
+      <p>This project was created by Austen Talbot during a 36-hour hackathon at Hack Reactor. It is written in JS using Leaflet, Angular, Node, and Mongo.</p>
+      <p>100% jQuery-free.</p>
+      <p>For more information, go to www.austentalbot.com or github.com/austentalbot.</p>
+    </div>
+
+    <div id='colors'>
+      <div id='good4' >+</div>
+      <div id='good3' ></div>
+      <div id='good2' ></div>
+      <div id='good1' ></div>
+      <div id='neutral' >=</div>
+      <div id='bad1' ></div>
+      <div id='bad2' ></div>
+      <div id='bad3' ></div>
+      <div id='bad4' >-</div>
+    </div>
+
+    <script src='map-ng.js'></script>
+
   </body>
 </html>

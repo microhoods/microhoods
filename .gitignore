@@ -1,5 +1,6 @@
 node_modules/
 www/lib
+platforms/ios/www/lib
 _DS_Store
 DS_Store
 
