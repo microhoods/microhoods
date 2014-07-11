@@ -1,10 +1,7 @@
 {
-  "name": "my-app",
-  "version": "0.0.1",
-  "dependencies": {
-    "bootstrap-css-only": "*",
-    "angular": "*",
-    "angular-cookies": "*",
-    "angular-ui-router": "*"
+  "name": "microhoods",
+  "private": "true",
+  "devDependencies": {
+    "ionic": "driftyco/ionic-bower#1.0.0-beta.9"
   }
 }
