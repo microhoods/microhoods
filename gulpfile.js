@@ -48,3 +48,60 @@ gulp.task('git-check', function(done) {
   }
   done();
 });
+
+// // require dependencies
+// var gulp    = require('gulp');
+// var minifyHtml = require('gulp-minify-html');
+// var minifyCss = require('gulp-minify-css');
+// var contact = require('gulp-concat');
+// var uglify = require('gulp-uglify');
+// var jshint = require('gulp-jshint');
+// var nodemon = require('gulp-nodemon');
+// var notify = require('gulp-notify');
+
+// // creates reference for app files 
+// var paths = { 
+//   scripts: ['PATH(s) GLOB PATTERN'], 
+//   html: ['PATH(s) TO HTML'], 
+//   styles: ['PATH(s) TO STYLESHEETS'], 
+//   tests: ['PATH(s) TO MOCHA SPECS'], 
+//   server: ['SERVER.JS']
+// }; 
+
+// // start server with nodemon
+// gulp.task('serve', function() {
+//   nodemon({script: paths.server.index});
+// });
+
+// // lint files 
+// gulp.task('jshint', function() {
+//   gulp.src(paths.scripts)
+//     .pipe(jshint())
+//     .pipe(jshint.reporter('default'))
+//     .pipe(notify({message: 'linting complete'})); 
+// })
+
+// // run mocha specs 
+// gulp.task('test', function() {
+//   gulp.src(paths.server.specs)
+//     .pipe(mocha({reporter: 'spec'}))
+//     .pipe(notify({message: 'passed specs'}));
+// });
+
+// // concat and uglify files
+// gulp.task('scripts', function() {
+//   gulp.src(paths.scripts)
+//     .pipe(uglify())
+//     .pipe(concat('NAME OF CONCATED FILE.js'))
+//     .pipe(gulp.dest('PATH TO BUILD DIR'))
+//     .pipe(notify({message: 'concat/uglify complete'}));
+// });
+
+// // watch, build, and default tasks
+// gulp.task('build', ['jshint, scripts']);
+
+// gulp.task('watch', function() {
+//   gulp.watch(paths.scripts, ['build']);
+// });
+
+// gulp.task('default', ['test', 'serve', 'watch']);
