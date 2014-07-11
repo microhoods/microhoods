@@ -81,12 +81,12 @@ exports.handleRequest = function (req, res) {
       });
 
     } else if (pathname==='/') {
-      var fileName=path.join(process.cwd(), './client', 'index-ng.html');
+      var fileName=path.join(process.cwd(), './www', 'index.html');
       var fileStream = fs.createReadStream(fileName);
       fileStream.pipe(res);
     
     } else {
-      var fileName=path.join(process.cwd(), './client', pathname);
+      var fileName=path.join(process.cwd(), './www', pathname);
       var fileStream = fs.createReadStream(fileName);
       fileStream.pipe(res);
     }
