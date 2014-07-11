@@ -1,0 +1,9 @@
+Fri Jul 11 2014 15:24:10 GMT-0700 (PDT):
+{ [Error: The subscription '16860' was not found. Please check your spelling, or use the azure login command to set your subscription.]
+  stack: [Getter/Setter],
+  __frame: undefined,
+  rawStack: [Getter] }
+Error: The subscription '16860' was not found. Please check your spelling, or use the azure login command to set your subscription.
+    at Profile._.extend.getSubscription (/Users/austentalbot/.nvm/v0.10.29/lib/node_modules/azure-cli/lib/util/profile/profile.js:183:15)
+    at __4 (/Users/austentalbot/.nvm/v0.10.29/lib/node_modules/azure-cli/lib/commands/account._js:100:41)
+

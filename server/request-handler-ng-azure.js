@@ -6,7 +6,6 @@ var _=require('underscore');
 var sentiment=require('sentiment');
 var MongoClient=require('mongodb').MongoClient;
 
-
 var address = process.env['MongoConnectionString'] || 'mongodb://localhost/coordinates';
 var client;
 MongoClient.connect(address, function(err, db) {
