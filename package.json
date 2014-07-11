@@ -14,13 +14,14 @@
     "mongodb": "^1.4.7",
     "q": "*",
     "sentiment": "^1.0.1",
-    "underscore": "^1.6.0"
+    "underscore": "^1.6.0",
+    "hapi": "^6.0.2"
   },
   "devDependencies": {
     "gulp": "*",
     "gulp-bower": "*",
     "gulp-jshint": "*",
-    "gulp-notify": "*",
+    "gulp-notify": "^1.4.0",
     "gulp-livereload": "*",
     "gulp-nodemon": "*",
     "gulp-plumber": "*",
