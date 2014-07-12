@@ -1,23 +1,3 @@
-var pg = require('pg');
-var conString = "postgres://username:password@localhost/database";
-
-String.prototype.supplant = function (o) {
-  return this.replace(/{([^{}]*)}/g,
-    function (a, b) {
-      var r = o[b];
-      return typeof r === 'string' || typeof r === 'number' ? r : a;
-    }
-  );
-};
-
-//set up SQL conection
-var client = new pg.Client(conString);
-client.connect(function(err) {
-  if (err) {
-    throw(err);
-  }
-});
-
 //add users
 var addUser=function(userName) {
   client.query('INSERT INTO USERS (username) VALUES("{userName}");'.supplant({userName: userName}), function(err) {
