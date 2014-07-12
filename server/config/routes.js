@@ -14,15 +14,23 @@ module.exports =  {
     // {
     //   method: 'POST', 
     //   path: '/', 
-    //   config: 
+    //   config:
     // }, 
-
     {
       method: 'GET',
       path: '/css/{css*}', 
       config: assetController.css
+    }, 
+    {
+      method: 'GET',
+      path: '/img/{img*}', 
+      config: assetController.css
+    },
+    {
+      method: 'GET',
+      path: '/js/{js*}', 
+      config: assetController.js
     }
-
   ] 
   
 };

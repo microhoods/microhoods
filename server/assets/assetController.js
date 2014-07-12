@@ -10,7 +10,6 @@ module.exports = {
   //     name: 'bower'
   //   }
   // },
-
   css: {
     handler: { 
       directory: { path: settings.root + '/www/css' }

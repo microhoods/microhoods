@@ -38,6 +38,9 @@ var getTopTags=function() {
     INNER JOIN tagMax AS m on m.coordinates=c.coordinates AND c.tagCount = m.maxTagCount \
     GROUP BY c.coordinates;',
     function(err, results) {
+      if (err) {
+        throw err;
+      }
       return results;
     }
   );
