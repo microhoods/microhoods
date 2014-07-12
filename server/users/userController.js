@@ -1,7 +1,9 @@
+var settings = require('../config/settings.js');  
+
 module.exports = { 
   index: { 
     handler: function(request, reply) { 
-      reply('hello world');
+      reply.file(settings.root + '/www/index.html');
     }
   }
 };

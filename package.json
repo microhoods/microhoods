@@ -15,7 +15,8 @@
     "q": "*",
     "sentiment": "^1.0.1",
     "underscore": "^1.6.0",
-    "hapi": "^6.0.2"
+    "hapi": "^6.0.2",
+    "pg": "^3.3.0"
   },
   "devDependencies": {
     "gulp": "*",
