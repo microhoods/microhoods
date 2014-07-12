@@ -4,4 +4,6 @@ platforms/ios/www/lib
 _DS_Store
 DS_Store
 
+*.xcuserstate
+
 BizSpark-7-8-2014-credentials.publishsettings
