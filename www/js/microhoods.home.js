@@ -12,10 +12,10 @@ var app = angular.module('microhoods.home', ['leaflet-directive'])
   $window.document.getElementById("map").style.height=height.toString()+'px'
   var topPos=$window.document.body.scrollHeight*.05;
   $window.document.getElementById("map").style.top=topPos.toString()+'px'
-  
+
   //initialize map to SF
   var map = L.map('map', {zoomControl: false, maxBounds: [[37.7, -122.65], [37.85, -122.3]], minZoom: 12}).setView([37.789, -122.414], 14);
-  new L.Control.Zoom({ position: 'bottomleft' }).addTo(map);
+  new L.Control.Zoom({ position: 'topleft' }).addTo(map);
 
   L.tileLayer('http://api.tiles.mapbox.com/v3/austentalbot.gfeh9hg8/{z}/{x}/{y}.png', {attribution: '<a href="http://mapbox.com">Mapbox</a>', maxZoom: 18}).addTo(map);
 
@@ -25,7 +25,7 @@ var app = angular.module('microhoods.home', ['leaflet-directive'])
 
   // Initialise the draw control and pass it the FeatureGroup of editable layers
   var drawControl = new L.Control.Draw({
-    position: 'bottomleft',
+    position: 'topleft',
     draw: {
       polygon: {
         shapeOptions: highlight
