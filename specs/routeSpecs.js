@@ -1,6 +1,5 @@
 var Lab = require('lab'); 
 var server = require('../server/app.js'); 
-var settings = require('../server/config/settings.js'); 
 
 // create TDD test shortcuts
 var suite = Lab.experiment; 
@@ -31,6 +30,20 @@ suite('routes', function(done) {
       });
     });
   });
+
+  // suite('css route', function(done) {
+  //   var route = {
+  //     method: 'GET',
+  //     url: '/css', 
+  //   }
+
+  //   test('should respond with a 200', function(done) { 
+  //     server.inject(route, function(response) {
+  //       expect(response.statusCode).to.equal(200);
+  //       done();
+  //     });
+  //   });
+  // });
 
   suite('invalid route', function(done) {
     var route = {
