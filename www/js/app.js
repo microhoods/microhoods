@@ -19,6 +19,25 @@ app.run(function($ionicPlatform) {
   });
 });
 
+app.controller('setMap', ['$scope', function($scope) {
+  angular.extend($scope, {
+    defaults: {
+      tileLayer: "http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png",
+      maxZoom: 10,
+      path: {
+        weight: 10,
+        color: '#800000',
+        opacity: 1
+      }
+    },
+    center: {
+      lat: 51.505,
+      lng: -0.09,
+      zoom: 10
+    }
+  });
+}]);
+
 app.config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/home');
   $stateProvider
@@ -35,3 +54,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
     templateUrl: 'html/community.html'
   });
 });
+
+
+
+

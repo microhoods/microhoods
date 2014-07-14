@@ -1,12 +1,82 @@
-var app = angular.module('microhoods.home', [])
+var app = angular.module('microhoods.home', ['leaflet-directive'])
 .run(function($window) {
   // set map height
+  // var height=$window.document.body.scrollHeight*.93;
+  // $window.document.getElementById("map").style.height=height.toString()+'px'
+  // var topPos=$window.document.body.scrollHeight*.05;
+  // $window.document.getElementById("map").style.top=topPos.toString()+'px'
+})
+.controller('map-controller', function($scope, $window) {
+
   var height=$window.document.body.scrollHeight*.93;
   $window.document.getElementById("map").style.height=height.toString()+'px'
   var topPos=$window.document.body.scrollHeight*.05;
   $window.document.getElementById("map").style.top=topPos.toString()+'px'
-})
-.controller('map-controller', function($scope) {
+  
+  //initialize map to SF
+  var map = L.map('map', {zoomControl: false, maxBounds: [[37.7, -122.65], [37.85, -122.3]], minZoom: 12}).setView([37.789, -122.414], 14);
+  new L.Control.Zoom({ position: 'bottomleft' }).addTo(map);
+
+  L.tileLayer('http://api.tiles.mapbox.com/v3/austentalbot.gfeh9hg8/{z}/{x}/{y}.png', {attribution: '<a href="http://mapbox.com">Mapbox</a>', maxZoom: 18}).addTo(map);
+
+  // Initialise the FeatureGroup to store editable layers
+  var drawnItems = new L.FeatureGroup();
+  map.addLayer(drawnItems);
+
+  // Initialise the draw control and pass it the FeatureGroup of editable layers
+  var drawControl = new L.Control.Draw({
+    position: 'bottomleft',
+    draw: {
+      polygon: {
+        shapeOptions: highlight
+      },
+      rectangle: {
+        shapeOptions: highlight
+      },
+      polyline : false,
+      circle : false,
+      marker: false
+    },
+    edit: {
+      featureGroup: drawnItems
+    }
+  });
+  map.addControl(drawControl);
+
+  map.on('draw:created', function (e) {
+      var type = e.layerType,
+          layer = e.layer;
+
+      // Add layer and listen for clicks
+      map.addLayer(layer);
+      drawnItems.addLayer(layer);
+      layer.on('click', function(e) {
+        //unhighlight old layer
+        if (drawnItems._layers[selectedLayerId]) {
+          drawnItems._layers[selectedLayerId].setStyle(defaultShape);
+        }
+
+        //switch selected layer to layer which has just been clicked
+        selectedLayerId=e.target._leaflet_id;
+        
+        //highlight layer
+        layer.setStyle(highlight);
+      });
+
+      //highlight and select layer
+      if (drawnItems._layers[selectedLayerId]!==undefined) {
+        drawnItems._layers[selectedLayerId].setStyle(defaultShape);
+      }
+      selectedLayerId=layer._leaflet_id;
+  });
+
+  map.on('draw:edited', function (e) {
+      var layers = e.layers;
+      selectedLayerId=undefined;
+  });
+
+
+
   $scope.tag='';
   $scope.addTag=function () {
     if (drawnItems._layers[selectedLayerId]) {    
@@ -99,73 +169,6 @@ var defaultShape = {
   'color': '#DB5A55'
 };
 
-//set map height
-// var height=window.document.body.scrollHeight*.93;
-// window.document.getElementById("map").style.height=height.toString()+'px'
-// var topPos=document.body.scrollHeight*.05;
-// document.getElementById("map").style.top=topPos.toString()+'px'
-
-//initialize map to SF
-var map = L.map('map', {zoomControl: false, maxBounds: [[37.7, -122.65], [37.85, -122.3]], minZoom: 12}).setView([37.789, -122.414], 14);
-new L.Control.Zoom({ position: 'bottomleft' }).addTo(map);
-
-L.tileLayer('http://api.tiles.mapbox.com/v3/austentalbot.gfeh9hg8/{z}/{x}/{y}.png', {attribution: '<a href="http://mapbox.com">Mapbox</a>', maxZoom: 18}).addTo(map);
-
-// Initialise the FeatureGroup to store editable layers
-var drawnItems = new L.FeatureGroup();
-map.addLayer(drawnItems);
-
-// Initialise the draw control and pass it the FeatureGroup of editable layers
-var drawControl = new L.Control.Draw({
-  position: 'bottomleft',
-  draw: {
-    polygon: {
-      shapeOptions: highlight
-    },
-    rectangle: {
-      shapeOptions: highlight
-    },
-    polyline : false,
-    circle : false,
-    marker: false
-  },
-  edit: {
-    featureGroup: drawnItems
-  }
-});
-map.addControl(drawControl);
-
-map.on('draw:created', function (e) {
-    var type = e.layerType,
-        layer = e.layer;
-
-    // Add layer and listen for clicks
-    map.addLayer(layer);
-    drawnItems.addLayer(layer);
-    layer.on('click', function(e) {
-      //unhighlight old layer
-      if (drawnItems._layers[selectedLayerId]) {
-        drawnItems._layers[selectedLayerId].setStyle(defaultShape);
-      }
-
-      //switch selected layer to layer which has just been clicked
-      selectedLayerId=e.target._leaflet_id;
-      
-      //highlight layer
-      layer.setStyle(highlight);
-    });
-
-    //highlight and select layer
-    if (drawnItems._layers[selectedLayerId]!==undefined) {
-      drawnItems._layers[selectedLayerId].setStyle(defaultShape);
-    }
-    selectedLayerId=layer._leaflet_id;
-});
-
-map.on('draw:edited', function (e) {
-    var layers = e.layers;
-    selectedLayerId=undefined;
-});
 
 var findBoundaries=function(coordArr) {
   var boundaries={
