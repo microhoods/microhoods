@@ -7,8 +7,6 @@ var sentiment=require('sentiment');
 var MongoClient=require('mongodb').MongoClient;
 
 if(!process.env.PORT){
-  // load local credentials when testing locally
-  // APP WILL NOT RUN WITHOUT PROPER TWITTER CREDENTIALS
   credentials = require('./config/credentials.js');
 }else{
   credentials = {
