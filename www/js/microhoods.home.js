@@ -40,26 +40,19 @@ var app = angular.module('microhoods.home', [])
   map.on('locationfound', onLocationFound);
 
   var labels={};
+  $scope.tag='';
   $scope.addHere=function() {
     var latlng=here.lat.toFixed(3) + ',' + here.lng.toFixed(3);
 
     labels[latlng] = labels[latlng] || [];
     labels[latlng].push($scope.tag);
+    console.log(labels);
+
+    L.circleMarker(here, {color: 'grey', opacity: .9}).setRadius(1).bindLabel($scope.tag, {noHide: true}).addTo(map);
+
+    $scope.tag='';
   }
 
-  $scope.tag='';
-  $scope.addTag=function () {
-    if (drawnItems._layers[selectedLayerId]) {    
-      var layer=drawnItems._layers[selectedLayerId];
-      if (layer.label!==undefined) {
-        tags=layer.label._content+', '+$scope.tag;
-      } else {
-        tags=$scope.tag
-      }
-      layer.bindLabel(tags);
-      $scope.tag='';
-    }
-  };
   $scope.saveTags=function() {
     //get all tags from page
     var tags=createTags();
@@ -208,34 +201,53 @@ var pointInPoly= function (point, polygon) {
 
 var createTags=function() {
   var allTags={};
-  for (id in drawnItems._layers) {
-    var layer=drawnItems._layers[id];
-    //only add labels for points where there are labels
-    console.log(layer.label);
-    if (layer.label!==undefined) {
-      //loop over all points in boundaries
-      var boundaries=findBoundaries(layer._latlngs);
-      for (var i= parseFloat(boundaries.minLat.toFixed(digits)); i<=parseFloat((boundaries.maxLat+block).toFixed(digits)); i+=block) {
-        var LAT=parseFloat(i.toFixed(digits));
-        for (var j= parseFloat(boundaries.minLng.toFixed(digits)); j<=parseFloat((boundaries.maxLng+block).toFixed(digits)); j+=block) {
-          var LNG=parseFloat(j.toFixed(digits));
-          var point=[LAT, LNG];
+  for (var coordStr in labels) {
+    var coords=coordStr.split(',');
+    coords[0]=parseInt(coords[0].replace(/\./g, ''));
+    coords[1]=parseInt(coords[1].replace(/\./g, ''));
 
-          //check if each point in polygon
-          if (pointInPoly(point, layer._latlngs)) {
-            var strPoint=JSON.stringify(point)
-            allTags[strPoint]=allTags[strPoint] || {};
-            var tags=layer.label._content.split(', ');
-            for (var k=0; k<tags.length; k++) {
-              var tag=tags[k];
-              //if point in poly, add point to dictionary and extend values of tags
-              allTags[strPoint][tag] = allTags[strPoint][tag]+1 || 1;
-            }
-          }
-        }
+    console.log(coords);
+    for (var i=coords[0]; i<=coords[0]+2; i++) {
+      var iStr=i.toString()
+      for (var j=coords[1]; j<=coords[1]+2; j++) {
+        var jStr=j.toString()
+        var point=iStr.substring(0, iStr.length-3)+'.'+iStr.substring(iStr.length-3)+','+jStr.substring(0, jStr.length-3)+'.'+jStr.substring(jStr.length-3);
+        console.log(point);
       }
     }
   }
+
+
+
+  // var allTags={};
+  // for (id in drawnItems._layers) {
+  //   var layer=drawnItems._layers[id];
+  //   //only add labels for points where there are labels
+  //   console.log(layer.label);
+  //   if (layer.label!==undefined) {
+  //     //loop over all points in boundaries
+  //     var boundaries=findBoundaries(layer._latlngs);
+  //     for (var i= parseFloat(boundaries.minLat.toFixed(digits)); i<=parseFloat((boundaries.maxLat+block).toFixed(digits)); i+=block) {
+  //       var LAT=parseFloat(i.toFixed(digits));
+  //       for (var j= parseFloat(boundaries.minLng.toFixed(digits)); j<=parseFloat((boundaries.maxLng+block).toFixed(digits)); j+=block) {
+  //         var LNG=parseFloat(j.toFixed(digits));
+  //         var point=[LAT, LNG];
+
+  //         //check if each point in polygon
+  //         if (pointInPoly(point, layer._latlngs)) {
+  //           var strPoint=JSON.stringify(point)
+  //           allTags[strPoint]=allTags[strPoint] || {};
+  //           var tags=layer.label._content.split(', ');
+  //           for (var k=0; k<tags.length; k++) {
+  //             var tag=tags[k];
+  //             //if point in poly, add point to dictionary and extend values of tags
+  //             allTags[strPoint][tag] = allTags[strPoint][tag]+1 || 1;
+  //           }
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
   return allTags;
 }
 
