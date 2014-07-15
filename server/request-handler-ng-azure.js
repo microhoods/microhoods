@@ -6,7 +6,16 @@ var _=require('underscore');
 var sentiment=require('sentiment');
 var MongoClient=require('mongodb').MongoClient;
 
-var address = process.env['MongoConnectionString'] || 'mongodb://localhost/coordinates';
+if(!process.env.PORT){
+  credentials = require('./config/credentials.js');
+}else{
+  credentials = {
+    MongoConnectionString: process.env['MongoConnectionString']
+  }
+}
+
+console.log(credentials.mongoConnectionString);
+var address = credentials.mongoConnectionString;
 var client;
 MongoClient.connect(address, function(err, db) {
   if (err) {
