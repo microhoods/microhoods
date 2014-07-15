@@ -7,8 +7,7 @@ var app = angular.module('microhoods.home', [])
   $window.document.getElementById("map").style.top=topPos.toString()+'px'
 
   //initialize map to SF
-  var map = L.map('map', {zoomControl: false, maxBounds: [[37.7, -122.65], [37.85, -122.3]], minZoom: 12}).setView([37.789, -122.414], 14);
-  new L.Control.Zoom({ position: 'topleft' }).addTo(map);
+  var map = L.map('map', {zoomControl: false, attributionControl: false, maxBounds: [[37.7, -122.65], [37.85, -122.3]], minZoom: 12}).setView([37.789, -122.414], 14);
 
   L.tileLayer('http://api.tiles.mapbox.com/v3/austentalbot.gfeh9hg8/{z}/{x}/{y}.png', {maxZoom: 18}).addTo(map);
 
@@ -39,34 +38,59 @@ var app = angular.module('microhoods.home', [])
 
   map.on('locationfound', onLocationFound);
 
+  var createTags=function() {
+    var allTags={};
+    for (var coordStr in labels) {
+      var coords=coordStr.split(',');
+      coords[0]=parseInt(coords[0].replace(/\./g, ''));
+      coords[1]=parseInt(coords[1].replace(/\./g, ''));
+
+      console.log(coords);
+      for (var i=coords[0]; i<=coords[0]+2; i++) {
+        var iStr=i.toString()
+        for (var j=coords[1]; j<=coords[1]+2; j++) {
+          var jStr=j.toString()
+          var point=iStr.substring(0, iStr.length-3)+'.'+iStr.substring(iStr.length-3)+','+jStr.substring(0, jStr.length-3)+'.'+jStr.substring(jStr.length-3);
+          allTags[point]=allTags[point] || [];
+          allTags[point].concat(labels[coordStr])
+        }
+      }
+    }
+    return allTags;
+  }
+
   var labels={};
   $scope.tag='';
   $scope.addHere=function() {
-    var latlng=here.lat.toFixed(3) + ',' + here.lng.toFixed(3);
+    if ($scope.tag!=='') {
+      var latlng=here.lat.toFixed(3) + ',' + here.lng.toFixed(3);
 
-    labels[latlng] = labels[latlng] || [];
-    labels[latlng].push($scope.tag);
-    console.log(labels);
+      labels[latlng] = labels[latlng] || [];
+      labels[latlng].push($scope.tag);
+      console.log(labels);
 
-    L.circleMarker(here, {color: 'grey', opacity: .9}).setRadius(1).bindLabel($scope.tag, {noHide: true}).addTo(map);
+      L.circleMarker(here, {color: 'grey', opacity: .9}).setRadius(1).bindLabel($scope.tag, {noHide: true}).addTo(map);
 
-    $scope.tag='';
+      $scope.tag='';
+    }
   }
 
   $scope.saveTags=function() {
     //get all tags from page
     var tags=createTags();
-    //save tags into mongo
-    var request = new XMLHttpRequest();
-    request.open('POST', '/', true);
-    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-    request.send(JSON.stringify(tags));
+    console.log(tags);
 
-    //clear all layers
-    for (var layer in drawnItems._layers) {
-      drawnItems.removeLayer(drawnItems._layers[layer]);
-    }
-    selectedLayerId=undefined;
+    // //save tags into mongo
+    // var request = new XMLHttpRequest();
+    // request.open('POST', '/', true);
+    // request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+    // request.send(JSON.stringify(tags));
+
+    // //clear all layers
+    // for (var layer in drawnItems._layers) {
+    //   drawnItems.removeLayer(drawnItems._layers[layer]);
+    // }
+    // selectedLayerId=undefined;
   };
   $scope.communitySwitch=function() {
     //switch colors for two buttons
@@ -158,24 +182,3 @@ var defaultShape = {
 // };
 
 
-var createTags=function() {
-  var allTags={};
-  for (var coordStr in labels) {
-    var coords=coordStr.split(',');
-    coords[0]=parseInt(coords[0].replace(/\./g, ''));
-    coords[1]=parseInt(coords[1].replace(/\./g, ''));
-
-    console.log(coords);
-    for (var i=coords[0]; i<=coords[0]+2; i++) {
-      var iStr=i.toString()
-      for (var j=coords[1]; j<=coords[1]+2; j++) {
-        var jStr=j.toString()
-        var point=iStr.substring(0, iStr.length-3)+'.'+iStr.substring(iStr.length-3)+','+jStr.substring(0, jStr.length-3)+'.'+jStr.substring(jStr.length-3);
-        allTags[point]=allTags[point] || [];
-        allTags[point].concat(labels[coordStr])
-      }
-    }
-  }
-
-  return allTags;
-}
