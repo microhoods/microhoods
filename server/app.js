@@ -15,6 +15,12 @@ var app = new Hapi.Server(settings.host, settings.port);
 //   }
 // });
 
-app.route(routes.routeTable); 
+credentials = require('./config/credentials.js').googleCredentials;
+
+app.pack.register(require('bell'), function(err){
+  app.auth.strategy('google', 'bell', credentials);
+  
+  app.route(routes.routeTable);
+});
 
 module.exports = app;
