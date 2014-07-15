@@ -82,11 +82,11 @@ var app = angular.module('microhoods.home', ['leaflet-directive'])
     map.locate({setView: false, maxZoom: 16});
   }, 5000);
 
-  var hereMarker= new L.circle({lat: 37.784, lng: -122.415}, 10);
-  map.addLayer(hereMarker);
+  var hereMarker=undefined;
   var onLocationFound = function (e) {
     console.log(e);
-    var radius = e.accuracy / 2;
+    // var radius = e.accuracy / 2;
+    var radius = 100;
     console.log(hereMarker);
     if (hereMarker===undefined) {
       hereMarker= new L.circle(e.latlng, radius);
@@ -97,13 +97,17 @@ var app = angular.module('microhoods.home', ['leaflet-directive'])
       map.addLayer(hereMarker);
     }
     here=e.latlng;
+    console.log(here.lat.toFixed(3) + here.lng.toFixed(3));
   };
 
   map.on('locationfound', onLocationFound);
 
+  var labels={};
   $scope.addHere=function() {
-    //create circle marker and add to map
-    var currMarker=L.circleMarker(here, {color: 'blue', opacity: .9}).setRadius(20).addTo(map).bindLabel('test');
+    var latlng=here.lat.toFixed(3) + ',' + here.lng.toFixed(3);
+
+    labels[latlng] = labels[latlng] || [];
+    labels[latlng].push($scope.tag);
   }
 
   $scope.tag='';
