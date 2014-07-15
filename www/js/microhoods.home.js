@@ -71,11 +71,40 @@ var app = angular.module('microhoods.home', ['leaflet-directive'])
   });
 
   map.on('draw:edited', function (e) {
-      var layers = e.layers;
-      selectedLayerId=undefined;
+    var layers = e.layers;
+    selectedLayerId=undefined;
   });
 
+  //zoom to current location
+  var here=undefined;
+  map.locate({setView: true, maxZoom: 16});
+  setInterval(function() {
+    map.locate({setView: false, maxZoom: 16});
+  }, 5000);
 
+  var hereMarker= new L.circle({lat: 37.784, lng: -122.415}, 10);
+  map.addLayer(hereMarker);
+  var onLocationFound = function (e) {
+    console.log(e);
+    var radius = e.accuracy / 2;
+    console.log(hereMarker);
+    if (hereMarker===undefined) {
+      hereMarker= new L.circle(e.latlng, radius);
+      map.addLayer(hereMarker);
+    } else {
+      map.removeLayer(hereMarker);
+      hereMarker=L.circle(e.latlng, radius);
+      map.addLayer(hereMarker);
+    }
+    here=e.latlng;
+  };
+
+  map.on('locationfound', onLocationFound);
+
+  $scope.addHere=function() {
+    //create circle marker and add to map
+    var currMarker=L.circleMarker(here, {color: 'blue', opacity: .9}).setRadius(20).addTo(map).bindLabel('test');
+  }
 
   $scope.tag='';
   $scope.addTag=function () {
@@ -201,7 +230,7 @@ var findBoundaries=function(coordArr) {
     boundaries.maxLat=37.81;
   }
   if (boundaries.minLng<-122.53) {
-    boundaries.minLng=122.53;
+    boundaries.minLng=-122.53;
   }
   if (boundaries.maxLng>-122.35) {
     boundaries.maxLng=-122.35
