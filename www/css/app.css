@@ -34,21 +34,31 @@ body {
 }
 #addTag {
   position: absolute;
-  top: 0px;
-  left: 0px;
+  bottom: 0%;
+  right: 0%;
+  font-family: 'Lato';
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
 }
 #tagInput {
+  margin: 0;
+  padding: 0;
+  padding-left: 1%;
+  border: none;
   position: absolute;
   bottom: 0%;
   left: 0%; 
   height: 5%;
-  width: 100%;
+  width: 84%;
   background: #FEF2D8;
   color: #6AA8A5;
   text-align: left;
   font-size: 100%;
   font-weight: 100;
   z-index: 1000;
+  outline: none;
 }
 #saveTags {
   position: absolute;

@@ -21,7 +21,6 @@ var app = angular.module('microhoods.home', [])
   var hereMarker=undefined;
   var onLocationFound = function (e) {
     console.log(e);
-    // var radius = e.accuracy / 2;
     var radius = 100;
     console.log(hereMarker);
     if (hereMarker===undefined) {
@@ -59,6 +58,7 @@ var app = angular.module('microhoods.home', [])
     return allTags;
   }
 
+  var wait=undefined;
   var labels={};
   $scope.tag='';
   $scope.addHere=function(distance) {
@@ -72,25 +72,43 @@ var app = angular.module('microhoods.home', [])
       new L.circle(here, distance, {color: '#DB5A55', weight: 2, opacity: .8}).bindLabel($scope.tag, {noHide: true}).addTo(map);
 
       $scope.tag='';
+
+      //wait five seconds to save in case other tags are added
+      if (wait===undefined) {
+        wait=setTimeout(function() {
+          $scope.saveTags();
+          wait=undefined;
+        }, 5000);
+      } else {
+        clearTimeout(wait);
+        wait=setTimeout(function() {
+          $scope.saveTags();
+          wait=undefined;
+        }, 5000);
+      }
     }
   }
 
   $scope.saveTags=function() {
     //get all tags from page
     var tags=createTags();
+    console.log('saving');
     console.log(tags);
 
-    // //save tags into mongo
-    // var request = new XMLHttpRequest();
-    // request.open('POST', '/', true);
-    // request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-    // request.send(JSON.stringify(tags));
+    //send tags to server for saving
+    var request = new XMLHttpRequest();
+    request.open('POST', '/', true);
+    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+    request.send(JSON.stringify(tags));
 
     // //clear all layers
     // for (var layer in drawnItems._layers) {
     //   drawnItems.removeLayer(drawnItems._layers[layer]);
     // }
     // selectedLayerId=undefined;
+
+    //reset labels
+    labels={};
   };
   $scope.communitySwitch=function() {
     //switch colors for two buttons
