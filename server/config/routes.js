@@ -6,26 +6,9 @@ var settings = require('../config/settings.js');
 module.exports =  {
 
     routeTable: [
-    {
-      method: ['GET', 'POST'],
-      path: '/',
-      config: {
-        auth: {
-          strategy: 'google',
-          mode: 'try'
-        },
-        handler: function(request, reply){
-          if (!request.auth.isAuthenticated) {
-            return reply('Authentication failed due to: ' + request.auth.error.message);
-            // console.log('auth handler');
-          }
-          return reply.redirect('/home');
-        }
-      }
-    },
     { 
       method: 'GET', 
-      path: '/home', 
+      path: '/', 
       config: userController.index
     },
     {
