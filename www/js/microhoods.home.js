@@ -109,6 +109,7 @@ var app = angular.module('microhoods.home', [])
       request.open('GET', '/', true);
       request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
       request.send($scope.tag);
+      console.log('searching for:', $scope.tag)
       $scope.tag='';
     }
   }

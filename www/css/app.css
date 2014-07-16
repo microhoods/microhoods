@@ -96,6 +96,14 @@ body {
   right: 0%;
   background: #F28D7A;
 }
+.error {
+  position: absolute;
+  bottom: 15%;
+  z-index: 2000;
+}
+
+
+
 .google-submit-button {
   background:url(../img/Red-signin-Long-base-44dp.png);
   background-repeat: no-repeat;
