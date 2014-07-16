@@ -96,16 +96,8 @@ body {
   right: 0%;
   background: #F28D7A;
 }
-.error {
-  position: absolute;
-  text-align: center;
-  background-color: #F28D7A;
-  color: #DB5A55;
-  bottom: 5%;
-  width: 100%;
-  height: 3%;
-  opacity: .9;
-}
+<<<<<<< HEAD
+
 
 
 
@@ -124,3 +116,5 @@ body {
 .google-submit-button:active {
   background:url(../img/Red-signin-Long-press-44dp.png);
 };
+=======
+>>>>>>> cc1635883b4ab6b5be54ba6f0c16781e938fd39a
