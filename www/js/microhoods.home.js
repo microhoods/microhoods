@@ -63,6 +63,8 @@ var app = angular.module('microhoods.home', [])
   $scope.tag='';
   $scope.addHere=function(distance) {
     if ($scope.tag!=='') {
+      console.log('here:');
+      console.log(here);
       var latlng=here.lat.toFixed(3) + ',' + here.lng.toFixed(3);
 
       labels[latlng] = labels[latlng] || [];

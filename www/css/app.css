@@ -22,25 +22,35 @@ body {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
 }
-#addTag, #saveTags, #communityMap, #personalMap {
+#saveTags, #communityMap, #personalMap {
   width: 15%;
   height: 5%;
   text-align: center;
   background: #6AA8A5;
   color: #FEF2D8;
 }
-#addTag:active, #saveTags:active {
+#addTag:active, #searchTags:active {
   background: #03606B;
 }
-#addTag {
+#addTag, #searchTags {
+  width: 12%;
+  height: 5%;
+  text-align: center;
+  background: #6AA8A5;
+  color: #FEF2D8;
   position: absolute;
   bottom: 0%;
-  right: 0%;
   font-family: 'Lato';
   margin: 0;
   padding: 0;
   border: 0;
   outline: none;
+}
+#searchTags {
+  right: 0%;
+}
+#addTag {
+  right: 12%;
 }
 #tagInput {
   margin: 0;
@@ -51,7 +61,7 @@ body {
   bottom: 0%;
   left: 0%; 
   height: 5%;
-  width: 84%;
+  width: 75%;
   background: #FEF2D8;
   color: #6AA8A5;
   text-align: left;
