@@ -25,11 +25,11 @@ var app = angular.module('microhoods.home', [])
     var radius = 100;
     console.log(hereMarker);
     if (hereMarker===undefined) {
-      hereMarker= new L.circle(e.latlng, radius);
+      hereMarker= new L.circle(e.latlng, radius, {color: '#03606B', weight: 2, opacity: .8});
       map.addLayer(hereMarker);
     } else {
       map.removeLayer(hereMarker);
-      hereMarker=L.circle(e.latlng, radius);
+      hereMarker=L.circle(e.latlng, radius, {color: '#03606B', weight: 2, opacity: .8});
       map.addLayer(hereMarker);
     }
     here=e.latlng;
@@ -61,7 +61,7 @@ var app = angular.module('microhoods.home', [])
 
   var labels={};
   $scope.tag='';
-  $scope.addHere=function() {
+  $scope.addHere=function(distance) {
     if ($scope.tag!=='') {
       var latlng=here.lat.toFixed(3) + ',' + here.lng.toFixed(3);
 
@@ -69,7 +69,7 @@ var app = angular.module('microhoods.home', [])
       labels[latlng].push($scope.tag);
       console.log(labels);
 
-      L.circleMarker(here, {color: 'grey', opacity: .9}).setRadius(1).bindLabel($scope.tag, {noHide: true}).addTo(map);
+      new L.circle(here, distance, {color: '#DB5A55', weight: 2, opacity: .8}).bindLabel($scope.tag, {noHide: true}).addTo(map);
 
       $scope.tag='';
     }
