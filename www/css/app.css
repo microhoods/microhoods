@@ -53,6 +53,7 @@ body {
   right: 12%;
 }
 #tagInput {
+  font-family: 'Lato';
   margin: 0;
   padding: 0;
   padding-left: 1%;
@@ -65,8 +66,6 @@ body {
   background: #FEF2D8;
   color: #6AA8A5;
   text-align: left;
-  font-size: 100%;
-  font-weight: 100;
   z-index: 1000;
   outline: none;
 }

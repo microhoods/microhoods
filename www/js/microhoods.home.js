@@ -1,5 +1,17 @@
 var app = angular.module('microhoods.home', [])
 .controller('map-controller', function($scope, $window) {
+  //set increment for lat/lng granularity
+  var block=.001;
+  var conversion=1000
+  var digits=3;
+
+  //formats
+  var highlight = {
+    'color': '#03606B'
+  };
+  var defaultShape = {
+    'color': '#DB5A55'
+  };
 
   var height=$window.document.body.scrollHeight*.90;
   $window.document.getElementById("map").style.height=height.toString()+'px'
@@ -91,6 +103,18 @@ var app = angular.module('microhoods.home', [])
     }
   }
 
+  $scope.searchTags=function() {
+    if ($scope.tag!=='') {
+      var request = new XMLHttpRequest();
+      request.open('GET', '/', true);
+      request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+      request.send($scope.tag);
+      $scope.tag='';
+    }
+  }
+
+
+
   $scope.saveTags=function() {
     //get all tags from page
     var tags=createTags();
@@ -107,7 +131,6 @@ var app = angular.module('microhoods.home', [])
     // for (var layer in drawnItems._layers) {
     //   drawnItems.removeLayer(drawnItems._layers[layer]);
     // }
-    // selectedLayerId=undefined;
 
     //reset labels
     labels={};
@@ -121,7 +144,6 @@ var app = angular.module('microhoods.home', [])
     for (var layer in drawnItems._layers) {
       drawnItems.removeLayer(drawnItems._layers[layer]);
     }
-    selectedLayerId=undefined;
 
     //get tags from server and filter to most popular
     request = new XMLHttpRequest();
@@ -156,22 +178,7 @@ var app = angular.module('microhoods.home', [])
         map.removeLayer(map._layers[layer]);
       }
     }
-    selectedLayerId=undefined;
   };
 });
 
-//set up global variables
-var selectedLayerId;
 
-//set increment for lat/lng granularity
-var block=.001;
-var conversion=1000
-var digits=3;
-
-//formats
-var highlight = {
-  'color': '#03606B'
-};
-var defaultShape = {
-  'color': '#DB5A55'
-};
