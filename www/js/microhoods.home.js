@@ -155,30 +155,3 @@ var highlight = {
 var defaultShape = {
   'color': '#DB5A55'
 };
-
-
-// var findBoundaries=function(coordArr) {
-//   var boundaries={
-//     minLat: undefined,
-//     minLng: undefined,
-//     maxLat: undefined,
-//     maxLng: undefined
-//   };
-
-//   //set up check to limit boundaries to SF
-//   if (boundaries.minLat<37.7) {
-//     boundaries.minLat=37.7;
-//   }
-//   if (boundaries.maxLat>37.81) {
-//     boundaries.maxLat=37.81;
-//   }
-//   if (boundaries.minLng<-122.53) {
-//     boundaries.minLng=-122.53;
-//   }
-//   if (boundaries.maxLng>-122.35) {
-//     boundaries.maxLng=-122.35
-//   }
-//   return boundaries;
-// };
-
-
