@@ -4,9 +4,10 @@ body {
   padding: 0;
   font-family: 'Lato';
   font-size: 10px;
+  background: #FEF2D8;
+  color: #03606B;
 }
 #map {
-  /*position: absolute;*/
   top: 5%;
   height: 93%;
   width: 100%;
@@ -77,10 +78,10 @@ body {
 }
 #title {
   position: absolute;
-  left: 40%;
-  width: 20%;
-  color: #03606B;
-  text-align: center;
+  left: 0%;
+  width: 70%;
+  font-size: 2em;
+  text-align: left;
 }
 #personalMap {
   position: absolute;
