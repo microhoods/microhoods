@@ -2,14 +2,7 @@
 var settings = require('../config/settings.js');  
 
 module.exports = {
-  // bower: {
-  //   handler: {
-  //     path: settings.root + '/www/lib'
-  //   }, 
-  //   app: {
-  //     name: 'bower'
-  //   }
-  // },
+
   css: {
     handler: { 
       directory: { path: settings.root + '/www/css' }
@@ -17,7 +10,16 @@ module.exports = {
     app : {
       name: 'css'
     }
-  }, 
+  },
+
+  html: {
+    handler: { 
+      directory: { path: settings.root + '/www/html' }
+    }, 
+    app : {
+      name: 'html'
+    }
+  },
 
   img: {
     handler: {
@@ -35,5 +37,14 @@ module.exports = {
     app: {
       name: 'js'
     }
-  }
+  }, 
+
+  lib: {
+    handler: {
+      directory: { path: settings.root + '/www/lib' }
+    }, 
+    app: {
+      name: 'lib'
+    }
+  },
 };

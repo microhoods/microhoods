@@ -28,11 +28,6 @@ module.exports =  {
       path: '/home', 
       config: userController.index
     },
-    // {
-    //   method: 'POST', 
-    //   path: '/', 
-    //   config:
-    // }, 
     {
       method: 'GET',
       path: '/css/{css*}', 
@@ -40,13 +35,23 @@ module.exports =  {
     }, 
     {
       method: 'GET',
+      path: '/html/{html*}', 
+      config: assetController.html
+    },
+    {
+      method: 'GET',
       path: '/img/{img*}', 
-      config: assetController.css
+      config: assetController.img
     },
     {
       method: 'GET',
       path: '/js/{js*}', 
       config: assetController.js
+    },
+    {
+      method: 'GET',
+      path: '/lib/{lib*}', 
+      config: assetController.lib
     }
   ] 
   

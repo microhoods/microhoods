@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 
-var app = angular.module('microhoods', ['leaflet-directive', 'microhoods.home', 'ionic']);
+var app = angular.module('microhoods', ['microhoods.home', 'ionic']);
 
 app.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -19,27 +19,8 @@ app.run(function($ionicPlatform) {
   });
 });
 
-app.controller('setMap', ['$scope', function($scope) {
-  angular.extend($scope, {
-    defaults: {
-      tileLayer: "http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png",
-      maxZoom: 10,
-      path: {
-        weight: 10,
-        color: '#800000',
-        opacity: 1
-      }
-    },
-    center: {
-      lat: 51.505,
-      lng: -0.09,
-      zoom: 10
-    }
-  });
-}]);
-
 app.config(function($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/home');
+  $urlRouterProvider.otherwise('/login');
   $stateProvider
   .state('home', {
     url: '/home',
@@ -47,7 +28,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
   })
   .state('login', {
     url: '/login',
-    templateUrl: 'html/places.html'
+    templateUrl: 'html/login.html'
   })
   .state('community', {
     url: '/community',
