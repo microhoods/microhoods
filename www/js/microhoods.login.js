@@ -1,7 +1,7 @@
 angular.module('microhoods.login', [])
-.controller('login-controller', function($scope){
-  $scope.chatRef = new Firebase('https://mcrhds.firebaseio.com');
-  $scope.auth = new FirebaseSimpleLogin($scope.chatRef, function(error, user) {
+.factory('fbAuth', function(){
+  var ref = new Firebase('https://mcrhds.firebaseio.com');
+  var auth = new FirebaseSimpleLogin(ref, function(error, user) {
     if (error) {
       // an error occurred while attempting login
       console.log(error);
@@ -13,11 +13,16 @@ angular.module('microhoods.login', [])
     }
   });
 
+  return {
+    auth: auth
+  };
+})
+.controller('login-controller', function($scope, fbAuth){
   $scope.authenticate = function(){
-    $scope.auth.login('google');
+    fbAuth.auth.login('google');
   }
 
   $scope.logout = function(){
-    $scope.auth.logout();
-  }
+    fbAuth.auth.logout();
+  }  
 });
