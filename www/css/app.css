@@ -43,7 +43,8 @@ body {
   font-family: 'Lato';
   margin: 0;
   padding: 0;
-  border: 0;
+  border: solid 1px;
+  border-color: #FEF2D8;
   outline: none;
 }
 #searchTags {
