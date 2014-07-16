@@ -4,7 +4,7 @@ var routes = require('./config/routes.js');
 // var pg = require('pg');
 
 // create server
-var app = new Hapi.Server(settings.host, settings.port); 
+var app = new Hapi.Server(settings.host, settings.port, settings.options); 
 
 //set up SQL conection
 // var conString = "postgres://username:password@localhost/database";
