@@ -1,4 +1,4 @@
-angular.module('microhoods.home')
+angular.module('microhoods.login', [])
 .controller('login-controller', function($scope){
   $scope.chatRef = new Firebase('https://mcrhds.firebaseio.com');
   $scope.auth = new FirebaseSimpleLogin($scope.chatRef, function(error, user) {
@@ -15,5 +15,9 @@ angular.module('microhoods.home')
 
   $scope.authenticate = function(){
     $scope.auth.login('google');
+  }
+
+  $scope.logout = function(){
+    $scope.auth.logout();
   }
 });

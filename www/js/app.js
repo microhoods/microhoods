@@ -4,7 +4,7 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 
-var app = angular.module('microhoods', ['microhoods.home', 'ionic']);
+var app = angular.module('microhoods', ['microhoods.home', 'microhoods.login', 'ionic']);
 
 app.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
