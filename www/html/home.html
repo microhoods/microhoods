@@ -9,8 +9,8 @@
     <div id='map'></div>
 
     <form name='inputForm'>
-      <input type='text' ng-model='tag' name='tagInput' ng-maxlength='10' id='tagInput' placeholder='enter a tag to add or search'/>
-      <span class='error' ng-show='inputForm.tagInput.$error.maxlength'>Too long!</span>
+      <input type='text' ng-model='tag' name='tagInput' ng-maxlength='20' maxlength='25' id='tagInput' placeholder='enter a tag to add or search'/>
+      <div class='error' ng-show='inputForm.tagInput.$error.maxlength'>PLEASE SPLIT INTO MULTIPLE, SHORTER TAGS</div>
     </form>
     <button id='addTag' ng-click='addHere(50)' ng-touch='addHere(50)'>Add</button>
     <button id='searchTags' ng-click='searchTags()' ng-touch='searchTags()'>Find</button>
