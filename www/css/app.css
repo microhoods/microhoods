@@ -86,18 +86,3 @@ body {
   right: 0%;
   background: #F28D7A;
 }
-.google-submit-button {
-  background:url(../img/Red-signin-Long-base-44dp.png);
-  background-repeat: no-repeat;
-  width: 240px;
-  height: 50px;
-  border: none;
-}
-
-.google-submit-button:hover {
-  background:url(../img/Red-signin-Long-hover-44dp.png);
-};
-
-.google-submit-button:active {
-  background:url(../img/Red-signin-Long-press-44dp.png);
-};
