@@ -17,6 +17,11 @@ module.exports =  {
       config: userController.addTag
     },
     {
+      method: 'GET', 
+      path: '/home', 
+      config: communityController.index
+    },
+    {
       method: 'GET',
       path: '/css/{css*}', 
       config: assetController.css
