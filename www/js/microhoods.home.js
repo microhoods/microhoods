@@ -58,9 +58,9 @@ var app = angular.module('microhoods.home', [])
       coords[1]=parseInt(coords[1].replace(/\./g, ''));
 
       // console.log(coords);
-      for (var i=coords[0]; i<=coords[0]+2; i++) {
+      for (var i=coords[0]-1; i<=coords[0]+1; i++) {
         var iStr=i.toString()
-        for (var j=coords[1]; j<=coords[1]+2; j++) {
+        for (var j=coords[1]-1; j<=coords[1]+1; j++) {
           var jStr=j.toString()
           var point=iStr.substring(0, iStr.length-3)+'.'+iStr.substring(iStr.length-3)+','+jStr.substring(0, jStr.length-3)+'.'+jStr.substring(jStr.length-3);
           allTags[point]=allTags[point] || [];
@@ -134,12 +134,6 @@ var app = angular.module('microhoods.home', [])
     request.send(JSON.stringify(tags));
     console.log(request);
 
-    // //clear all layers
-    // for (var layer in drawnItems._layers) {
-    //   drawnItems.removeLayer(drawnItems._layers[layer]);
-    // }
-
-    //reset labels
     labels={};
   };
 
@@ -148,12 +142,18 @@ var app = angular.module('microhoods.home', [])
     document.getElementById("personalMap").style.background='#F28D7A';
     document.getElementById("communityMap").style.background='#DB5A55';
 
+    //turn off current location finder
+    map.off('locationfound', onLocationFound);
+
     //clear all layers
-    for (var layer in drawnItems._layers) {
-      drawnItems.removeLayer(drawnItems._layers[layer]);
+    for (var layer in map._layers) {
+
+      if (layer!=='15') {
+        map.removeLayer(map._layers[layer]);
+      }
     }
 
-    //get tags from server and filter to most popular
+    //get tags from server, filtered to most popular
     request = new XMLHttpRequest();
     request.open('GET', '/home', true);
 
@@ -163,11 +163,22 @@ var app = angular.module('microhoods.home', [])
         var allCoords = JSON.parse(request.responseText);
         console.log(allCoords);
         for (var coord in allCoords) {
-          if (coord!=='undefined') {
-            var label=allCoords[coord]['label'];
-            var sent=allCoords[coord]['sentiment'];
-            L.circleMarker(JSON.parse(coord), {color: sentimentColors(sent), opacity: .9}).setRadius(5).addTo(map).bindLabel(label+' ('+sent.toFixed(1)+')');
-          }
+          console.log(allCoords[coord]);
+          var latlng=allCoords[coord].coordinates.split(',');
+          latlng[0]=parseFloat(latlng[0]);
+          latlng[1]=parseFloat(latlng[1]);
+
+          markerlng=latlng[1]-(block/3);
+
+          //insert circle
+          new L.circle(latlng, 40, {color: '#DB5A55', weight: 2, opacity: .8}).addTo(map);
+          //insert circle marker so we can always show label
+          var marker=L.circleMarker([latlng[0], markerlng], {color: '#DB5A55', opacity: 0}).setRadius(0).bindLabel(allCoords[coord].tag, {noHide: true}).addTo(map);   
+
+        //   if (coord!=='undefined') {
+        //     var label=allCoords[coord]['label'];
+        //     var sent=allCoords[coord]['sentiment'];
+        //   }
         }
       } 
     };
