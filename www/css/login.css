@@ -2,12 +2,17 @@
 
 .jumbotron {
   height: 100vh;
-  background-color: #FEF2D8
+  background-color: #FEF2D8;
+  text-align: center;
+  display: block;
+  margin: 0 auto;
 }
 
 .page-header {
   font-size: 18pt;
-  display: block;
+  color: #03606B;
+  font-family: 'Lato';
+  font-weight: bold;
 }
 
 .page-subheader {
@@ -15,13 +20,13 @@
   display: block;
 }
 
-.google-submit-button {
+/*.google-submit-button {
   background:url(../img/Red-signin-Long-base-44dp.png);
   background-repeat: no-repeat;
   width: 240px;
   height: 50px;
   border: none;
-}
+}*/
 
 .google-submit-button:hover {
   background:url(../img/Red-signin-Long-hover-44dp.png);

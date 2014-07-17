@@ -83,7 +83,8 @@ var app = angular.module('microhoods.home', [])
       labels[latlng].push($scope.tag);
       console.log(labels);
 
-      new L.circle(here, distance, {color: '#DB5A55', weight: 2, opacity: .8}).bindLabel($scope.tag, {noHide: true}).addTo(map);
+      new L.circle(here, distance, {color: '#DB5A55', weight: 2, opacity: .8}).addTo(map);
+      L.circleMarker(here, {color: '#DB5A55', opacity: 0}).setRadius(0).bindLabel($scope.tag, {noHide: true}).addTo(map);
 
       $scope.tag='';
 
@@ -109,11 +110,10 @@ var app = angular.module('microhoods.home', [])
       request.open('GET', '/', true);
       request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
       request.send($scope.tag);
+      console.log('searching for:', $scope.tag)
       $scope.tag='';
     }
   }
-
-
 
   $scope.saveTags=function() {
     //get all tags from page

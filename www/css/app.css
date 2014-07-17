@@ -3,12 +3,13 @@ body {
   margin: 0;
   padding: 0;
   font-family: 'Lato';
-  font-size: 10px;
+  font-size: 14px;
+  background: #FEF2D8;
+  color: #03606B;
 }
 #map {
-  /*position: absolute;*/
   top: 5%;
-  height: 93%;
+  height: 90%;
   width: 100%;
   left: 0px;
 }
@@ -22,8 +23,8 @@ body {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
 }
-#saveTags, #communityMap, #personalMap {
-  width: 15%;
+#communityMap, #personalMap {
+  width: 25%;
   height: 5%;
   text-align: center;
   background: #6AA8A5;
@@ -34,7 +35,7 @@ body {
 }
 #addTag, #searchTags {
   width: 12%;
-  height: 5%;
+  height: 8%;
   text-align: center;
   background: #6AA8A5;
   color: #FEF2D8;
@@ -62,8 +63,8 @@ body {
   position: absolute;
   bottom: 0%;
   left: 0%; 
-  height: 5%;
-  width: 75%;
+  height: 8%;
+  width: 76%;
   background: #FEF2D8;
   color: #6AA8A5;
   text-align: left;
@@ -77,22 +78,46 @@ body {
 }
 #title {
   position: absolute;
-  left: 40%;
-  width: 20%;
-  color: #03606B;
-  text-align: center;
+  left: 0%;
+  width: 70%;
+  font-size: 1.5em;
+  text-align: left;
 }
 #personalMap {
   position: absolute;
-  width: 15%;
   top: 0px;
-  right: 15%;
+  right: 25%;
   background: #DB5A55;
 }
 #communityMap {
   position: absolute;
-  width: 15%;
   top: 0px;
   right: 0%;
   background: #F28D7A;
 }
+.error {
+  position: absolute;
+  text-align: center;
+  background-color: #F28D7A;
+  color: #DB5A55;
+  bottom: 8%;
+  width: 100%;
+  height: 3%;
+  opacity: .9;
+}
+
+.google-submit-button {
+  background:url(../img/Red-signin-Long-base-44dp.png);
+  background-repeat: no-repeat;
+  width: 240px;
+  height: 50px;
+  border: none;
+}
+
+.google-submit-button:hover {
+  background:url(../img/Red-signin-Long-hover-44dp.png);
+};
+
+.google-submit-button:active {
+  background:url(../img/Red-signin-Long-press-44dp.png);
+};

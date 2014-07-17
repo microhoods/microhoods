@@ -1,0 +1,18 @@
+{
+  "name": "microhoods",
+  "version": "0.0.1",
+  "description": "An Ionic project",
+  "dependencies": {
+    "connect": "^3.0.1",
+    "http": "0.0.0",
+    "mongodb": "^1.4.7",
+    "q": "*",
+    "sentiment": "^1.0.1",
+    "underscore": "^1.6.0",
+    "hapi": "^6.0.2",
+    "pg": "^3.3.0"
+  },
+  "devDependencies": {
+    
+  }
+}

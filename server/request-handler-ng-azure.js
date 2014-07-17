@@ -10,7 +10,7 @@ if(!process.env.PORT){
   credentials = require('./config/credentials.js');
 }else{
   credentials = {
-    MongoConnectionString: process.env['MongoConnectionString']
+    mongoConnectionString: process.env['MongoConnectionString']
   }
 }
 
