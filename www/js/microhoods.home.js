@@ -156,7 +156,7 @@ var app = angular.module('microhoods.home', [])
     request.onload = function() {
     console.log('made it here');
       if (request.status >= 200 && request.status < 400){
-        repopulate map with most popular tags
+        // repopulate map with most popular tags
         var allCoords = JSON.parse(request.responseText);
         console.log(allCoords);
         for (var coord in allCoords) {
