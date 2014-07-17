@@ -5,10 +5,10 @@ app.start(function() {
   //   query.on('row', function(row) {
   //   console.log(row.username);
   // });
-  var query = client.query("SELECT * FROM TAGS;");
-  query.on('row', function(row) {
-    console.log(row);
-  });
+  // var query = client.query("SELECT * FROM TAGS;");
+  // query.on('row', function(row) {
+  //   console.log(row);
+  // });
 
   console.log('server running at: ' + app.info.uri); 
 });

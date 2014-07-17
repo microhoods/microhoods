@@ -9,13 +9,13 @@ String.prototype.supplant = function(o) {
   );
 };
 
-var addTag=function(user, tag, coord) {
+var addTag=function(userName, tagName, coordinates) {
   //coordinates passed in as array of [lat, lng]
   client.query("INSERT INTO TAGS (user_id, tag, coordinates) VALUES( \
     (SELECT user_id FROM USERS \
     WHERE username='{userName}'), \
     '{tagName}', \
-    '{coordinates})');".supplant({userName: user, tagName: tag, coordinates: coord})
+    '{coordinates})');".supplant({userName: userName, tagName: tagName, coordinates: coordinates})
   );
 }
 
@@ -34,28 +34,11 @@ module.exports = {
         for (var i=0; i<request.payload[coord].length; i++) {
           //add tag
           addTag('Forest', request.payload[coord][i], coord);
-          console.log('saved!');
         }
       }
     }, 
     payload: {
       parse: true
     }
-
-    // handler: function(request, reply) {
-    //   function(userName, tagName, coordinates) {
-    //     //coordinates passed in as array of [lat, lng]
-        // client.query('INSERT INTO TAGS (user_id, tag, coordinates) VALUES( \
-        //   (SELECT user_id FROM USERS \
-        //   WHERE username="{userName}"), \
-        //   "{tagName}", \
-        //   "{coordinates})");'.supplant({
-        //     // userName: userName, 
-        //     userName: 'Forest', 
-        //     tagName: tagName, 
-        //     coordinates: coordinates
-    //     }));
-    //   }
-    // }
   }
 };
