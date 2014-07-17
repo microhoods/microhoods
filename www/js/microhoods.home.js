@@ -57,7 +57,7 @@ var app = angular.module('microhoods.home', [])
       coords[0]=parseInt(coords[0].replace(/\./g, ''));
       coords[1]=parseInt(coords[1].replace(/\./g, ''));
 
-      console.log(coords);
+      // console.log(coords);
       for (var i=coords[0]; i<=coords[0]+2; i++) {
         var iStr=i.toString()
         for (var j=coords[1]; j<=coords[1]+2; j++) {
@@ -76,13 +76,14 @@ var app = angular.module('microhoods.home', [])
   $scope.tag='';
   $scope.addHere=function(distance) {
     if ($scope.tag!=='') {
-      console.log('here:');
-      console.log(here);
+      // console.log('here:');
+      // console.log(here);
       var latlng=here.lat.toFixed(3) + ',' + here.lng.toFixed(3);
 
       labels[latlng] = labels[latlng] || [];
+      console.dir(labels);
       labels[latlng].push($scope.tag);
-      console.log(labels);
+      // console.log(labels);
 
       new L.circle(here, distance, {color: '#DB5A55', weight: 2, opacity: .8}).addTo(map);
       L.circleMarker(here, {color: '#DB5A55', opacity: 0}).setRadius(0).bindLabel($scope.tag, {noHide: true}).addTo(map);
@@ -124,9 +125,10 @@ var app = angular.module('microhoods.home', [])
 
     //send tags to server for saving
     var request = new XMLHttpRequest();
-    request.open('POST', '/', true);
-    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+    request.open('POST', '/home', true);
+    request.setRequestHeader('Content-Type', 'application/json');
     request.send(JSON.stringify(tags));
+    console.log(request);
 
     // //clear all layers
     // for (var layer in drawnItems._layers) {
