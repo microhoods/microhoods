@@ -1,5 +1,5 @@
 angular.module('microhoods.login', [])
-.factory('fbAuth', function(){
+.factory('fbAuth', function($state){
   var ref = new Firebase('https://mcrhds.firebaseio.com');
   var service = {};
   service.isLoggedIn = false;
@@ -11,6 +11,7 @@ angular.module('microhoods.login', [])
       // user authenticated with Firebase
       console.log('User ID: ' + user.uid + ', Provider: ' + user.provider);
       service.isLoggedIn = true;
+      $state.transitionTo('home');
     } else {
       // user is logged out
       console.log(user);
