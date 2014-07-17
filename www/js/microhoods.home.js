@@ -109,9 +109,13 @@ var app = angular.module('microhoods.home', [])
   $scope.searchTags=function() {
     if ($scope.tag!=='') {
       var request = new XMLHttpRequest();
-      request.open('GET', '/', true);
-      request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-      request.send($scope.tag);
+      request.open('POST', '/home/search', true);
+      request.setRequestHeader('Content-Type', 'application/json');
+      request.onload = function() {
+        var tags = JSON.parse(request.responseText);
+        console.log(tags);
+      };
+      request.send(JSON.stringify($scope.tag));
       console.log('searching for:', $scope.tag)
       $scope.tag='';
     }
@@ -154,7 +158,6 @@ var app = angular.module('microhoods.home', [])
     request.open('GET', '/home', true);
 
     request.onload = function() {
-    console.log('made it here');
       if (request.status >= 200 && request.status < 400){
         // repopulate map with most popular tags
         var allCoords = JSON.parse(request.responseText);

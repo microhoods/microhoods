@@ -1,5 +1,14 @@
 var settings = require('../config/settings.js'); 
 
+String.prototype.supplant = function(o) {
+  return this.replace(/{([^{}]*)}/g,
+    function (a, b) {
+      var r = o[b];
+      return typeof r === 'string' || typeof r === 'number' ? r : a;
+    }
+  );
+};
+
 module.exports = {  
   index: {
     handler: function(request, reply) {
@@ -25,10 +34,26 @@ module.exports = {
             throw err;
           }
 
-          console.log(results.rows);
           reply(JSON.stringify(results.rows));
         }
       );
     }
+  }, 
+
+  find: {
+    handler: function(request, reply) {
+      client.query("SELECT tag, coordinates FROM TAGS \
+        WHERE tag='{tagName}';".supplant({ tagName: request.payload }),
+        function(err, results) {
+          if (err) {
+            console.log(err);
+          }
+          reply(results.rows);
+        } 
+      );      
+    }, 
+    payload: {
+      parse: true
+    }    
   }
 };
