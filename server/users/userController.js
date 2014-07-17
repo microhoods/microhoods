@@ -9,12 +9,10 @@ module.exports = {
   addTag: {
     handler: function(request, reply) {
       console.log(request.payload);
-      console.log(request);
     }, 
-    // payload: {
-    //   // parse: 'gunzip'
-    //   allow
-    // }
+    payload: {
+      parse: true
+    }
 
     // handler: function(request, reply) {
     //   function(userName, tagName, coordinates) {

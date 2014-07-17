@@ -123,12 +123,10 @@ var app = angular.module('microhoods.home', [])
     console.log('saving');
     console.log(tags);
 
-
-    //http://www.w3.org/TR/html5/forms.html#application/x-www-form-urlencoded-encoding-algorithm
     //send tags to server for saving
     var request = new XMLHttpRequest();
     request.open('POST', '/home', true);
-    request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+    request.setRequestHeader('Content-Type', 'application/json');
     request.send(JSON.stringify(tags));
     console.log(request);
 
