@@ -1,7 +1,9 @@
-<div class="jumbotron">
+<div ng-model="microhoods.login" ng-controller="login-controller" class="jumbotron">
   <div class="container-fluid">
     <div class="page-header"> MICROHOODS <small class="page-subheader"> Sign Up or Sign In Now </small></div>
-    <input type="image" src="../img/Red-signin-Long-base-44dp.png" class="google-submit-button">
+    <input type="image" src="../img/Red-signin-Long-base-44dp.png" class="google-submit-button" ng-click="authenticate()">
+  </div>
+  <div>
+    <input type="button" value="Log Out of Microhoods" ng-click="logout()">
   </div>
 </div>
-

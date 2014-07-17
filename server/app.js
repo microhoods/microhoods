@@ -14,6 +14,6 @@ client.connect(function(err) {
   }
 });
 
-app.route(routes.routeTable); 
+app.route(routes.routeTable);
 
 module.exports = app;
