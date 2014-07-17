@@ -106,6 +106,16 @@ body {
   opacity: .9;
 }
 
+.leaflet-label {
+  font-family: 'Lato';
+  opacity: .8;
+  font-weight: normal;
+  padding: 1px;
+  font-size: 10px;
+  border-width: 1px;
+  border-radius: 1px;
+}
+
 .google-submit-button {
   background:url(../img/Red-signin-Long-base-44dp.png);
   background-repeat: no-repeat;
@@ -116,8 +126,8 @@ body {
 
 .google-submit-button:hover {
   background:url(../img/Red-signin-Long-hover-44dp.png);
-};
+}
 
 .google-submit-button:active {
   background:url(../img/Red-signin-Long-press-44dp.png);
-};
+}
