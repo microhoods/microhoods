@@ -6,7 +6,7 @@
 
 var app = angular.module('microhoods', ['microhoods.home', 'microhoods.login', 'ionic']);
 
-app.run(function($ionicPlatform) {
+app.run(function($ionicPlatform, $rootScope, $state, fbAuth) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -17,6 +17,14 @@ app.run(function($ionicPlatform) {
       StatusBar.styleDefault();
     }
   });
+
+  $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
+    if (toState.authenticate && !fbAuth.isLoggedIn){
+      // User isn’t authenticated
+      $state.transitionTo('login');
+      event.preventDefault(); 
+    }
+  });
 });
 
 app.config(function($stateProvider, $urlRouterProvider) {
@@ -24,7 +32,8 @@ app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
   .state('home', {
     url: '/home',
-    templateUrl: 'html/home.html'
+    templateUrl: 'html/home.html',
+    authenticate: true
   })
   .state('login', {
     url: '/login',
@@ -32,7 +41,7 @@ app.config(function($stateProvider, $urlRouterProvider) {
   })
   .state('community', {
     url: '/community',
-    templateUrl: 'html/community.html'
+    templateUrl: 'html/community.html',
   });
 });
 
