@@ -1,21 +1,23 @@
 angular.module('microhoods.login', [])
 .factory('fbAuth', function(){
   var ref = new Firebase('https://mcrhds.firebaseio.com');
-  var auth = new FirebaseSimpleLogin(ref, function(error, user) {
+  var service = {};
+  service.isLoggedIn = false;
+  service.auth = new FirebaseSimpleLogin(ref, function(error, user) {
     if (error) {
       // an error occurred while attempting login
       console.log(error);
     } else if (user) {
       // user authenticated with Firebase
       console.log('User ID: ' + user.uid + ', Provider: ' + user.provider);
+      service.isLoggedIn = true;
     } else {
       // user is logged out
+      console.log(user);
     }
   });
 
-  return {
-    auth: auth
-  };
+  return service;
 })
 .controller('login-controller', function($scope, fbAuth){
   $scope.authenticate = function(){
@@ -23,6 +25,9 @@ angular.module('microhoods.login', [])
   }
 
   $scope.logout = function(){
-    fbAuth.auth.logout();
+    if(fbAuth.isLoggedIn){
+      fbAuth.auth.logout();
+      window.location.reload();
+    }
   }  
 });
