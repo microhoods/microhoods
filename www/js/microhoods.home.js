@@ -138,7 +138,8 @@ var app = angular.module('microhoods.home', [])
     //reset labels
     labels={};
   };
-  $scope.communitySwitch=function() {
+
+  $scope.communitySwitch = function() {
     //switch colors for two buttons
     document.getElementById("personalMap").style.background='#F28D7A';
     document.getElementById("communityMap").style.background='#DB5A55';
@@ -150,12 +151,14 @@ var app = angular.module('microhoods.home', [])
 
     //get tags from server and filter to most popular
     request = new XMLHttpRequest();
-    request.open('GET', '/data', true);
+    request.open('GET', '/home', true);
 
     request.onload = function() {
+    console.log('made it here');
       if (request.status >= 200 && request.status < 400){
-        //repopulate map with most popular tags
-        var allCoords=JSON.parse(request.responseText);
+        repopulate map with most popular tags
+        var allCoords = JSON.parse(request.responseText);
+        console.log(allCoords);
         for (var coord in allCoords) {
           if (coord!=='undefined') {
             var label=allCoords[coord]['label'];
@@ -170,6 +173,7 @@ var app = angular.module('microhoods.home', [])
     };
     request.send();
   };
+
   $scope.personalSwitch=function() {
     //switch colors for two buttons
     document.getElementById("personalMap").style.background='#DB5A55';
