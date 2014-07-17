@@ -32,9 +32,9 @@ var app = angular.module('microhoods.home', [])
 
   var hereMarker=undefined;
   var onLocationFound = function (e) {
-    console.log(e);
+    // console.log(e);
     var radius = 100;
-    console.log(hereMarker);
+    // console.log(hereMarker);
     if (hereMarker===undefined) {
       hereMarker= new L.circle(e.latlng, radius, {color: '#03606B', weight: 2, opacity: .8});
       map.addLayer(hereMarker);
@@ -44,7 +44,7 @@ var app = angular.module('microhoods.home', [])
       map.addLayer(hereMarker);
     }
     here=e.latlng;
-    console.log(here.lat.toFixed(3) + here.lng.toFixed(3));
+    // console.log(here.lat.toFixed(3) + here.lng.toFixed(3));
   };
 
   map.on('locationfound', onLocationFound);
@@ -52,6 +52,7 @@ var app = angular.module('microhoods.home', [])
   var createTags=function() {
     var allTags={};
     for (var coordStr in labels) {
+      console.log(labels[coordStr]);
       var coords=coordStr.split(',');
       coords[0]=parseInt(coords[0].replace(/\./g, ''));
       coords[1]=parseInt(coords[1].replace(/\./g, ''));
@@ -63,7 +64,7 @@ var app = angular.module('microhoods.home', [])
           var jStr=j.toString()
           var point=iStr.substring(0, iStr.length-3)+'.'+iStr.substring(iStr.length-3)+','+jStr.substring(0, jStr.length-3)+'.'+jStr.substring(jStr.length-3);
           allTags[point]=allTags[point] || [];
-          allTags[point].concat(labels[coordStr])
+          allTags[point]=allTags[point].concat(labels[coordStr])
         }
       }
     }
