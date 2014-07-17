@@ -109,8 +109,8 @@ var app = angular.module('microhoods.home', [])
   $scope.searchTags=function() {
     if ($scope.tag!=='') {
       var request = new XMLHttpRequest();
-      request.open('GET', '/', true);
-      request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+      request.open('GET', '/home/search', true);
+      request.setRequestHeader('Content-Type', 'application/json');
       request.send($scope.tag);
       console.log('searching for:', $scope.tag)
       $scope.tag='';
