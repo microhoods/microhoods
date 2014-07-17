@@ -19,7 +19,7 @@ app.run(function($ionicPlatform, $rootScope, $state, fbAuth) {
   });
 
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
-    if (toState.authenticate && !fbAuth.isLoggedIn){
+    if (toState.authenticate && !fbAuth.user){
       // User isn’t authenticated
       $state.transitionTo('login');
       event.preventDefault(); 
