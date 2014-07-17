@@ -6,9 +6,7 @@ var pg = require('pg');
 // create server
 var app = new Hapi.Server(settings.host, settings.port, settings.options); 
 
-var conString = "postgres://username:password@localhost/database";
-
-// var client = new pg.Client(settings.client);
+// create database
 client = new pg.Client(settings.client);
 client.connect(function(err) {
   if (err) {
