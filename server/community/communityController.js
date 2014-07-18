@@ -56,9 +56,10 @@ module.exports = {
       parse: true
     }    
   },
-  find: {
+  user: {
     handler: function(request, reply) {
       var payload = JSON.parse(request.payload);
+      console.log(payload);
       client.query("SELECT tag, coordinates FROM TAGS \
         WHERE user_id=( \
           SELECT user_id from USERS \
