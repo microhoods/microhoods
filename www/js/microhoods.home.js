@@ -108,12 +108,27 @@ var app = angular.module('microhoods.home', [])
 
   $scope.searchTags=function() {
     if ($scope.tag!=='') {
+
+
       var request = new XMLHttpRequest();
       request.open('POST', '/home/search', true);
       request.setRequestHeader('Content-Type', 'application/json');
       request.onload = function() {
         var tags = JSON.parse(request.responseText);
-        console.log(tags);
+        for (var tag in tags) {
+          var latlng=tags[tag].coordinates.split(',');
+          latlng[0]=parseFloat(latlng[0]);
+          latlng[1]=parseFloat(latlng[1]);
+
+          markerlng=latlng[1]-(block/3);
+
+          //insert circle
+          new L.circle(latlng, 40, {color: '#DB5A55', weight: 2, opacity: .8}).addTo(map);
+          //insert circle marker so we can always show label
+          var marker=L.circleMarker([latlng[0], markerlng], {color: '#DB5A55', opacity: 0}).setRadius(0).bindLabel(tags[tag].tag, {noHide: true}).addTo(map);   
+        }
+
+
       };
       request.send(JSON.stringify($scope.tag));
       console.log('searching for:', $scope.tag)
