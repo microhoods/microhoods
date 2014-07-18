@@ -118,6 +118,10 @@ body {
   opacity: .9;
 }
 
+button:focus {
+  outline: 0;
+}
+
 .leaflet-label {
   font-family: 'Lato';
   opacity: .8;
