@@ -1,7 +1,7 @@
 // sets server defaults 
 var path = require('path'); 
 var rootPath = path.normalize(__dirname + '/../..'); 
-if (process!==undefined) {
+if (process===undefined) {
   var credentials = require('../../credentials.js');
 } else {
   var credentials = {
