@@ -7,11 +7,11 @@ if (!process.env.POSTGRES_USER) {
   var credentials = {
     process: {
       env: {
-        user: process.env['POSTGRES_USER'],
-        password: process.env['POSTGRES_PASSWORD'],
-        database: process.env['POSTGRES_DATABASE'],
-        host: process.env['POSTGRES_HOST'],
-        port: process.env['POSTGRES_PORT']        
+        POSTGRES_USER: process.env['POSTGRES_USER'],
+        POSTGRES_PASSWORD: process.env['POSTGRES_PASSWORD'],
+        POSTGRES_DATABASE: process.env['POSTGRES_DATABASE'],
+        POSTGRES_HOST: process.env['POSTGRES_HOST'],
+        POSTGRES_PORT: process.env['POSTGRES_PORT']        
       }
     }
   }
