@@ -17,7 +17,6 @@ if (process===undefined) {
   };
 }
 
-
 module.exports = {
   root: rootPath, 
   host: '0.0.0.0',

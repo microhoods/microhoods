@@ -1,4 +1,5 @@
 var app = require('./server/app.js');
+console.log('ENV PORT', process.env.PORT);
 
 app.start(function() {
   // var query = client.query("SELECT * FROM users");
