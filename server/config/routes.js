@@ -11,6 +11,11 @@ module.exports =  {
       path: '/', 
       config: userController.index
     },
+    { 
+      method: 'POST', 
+      path: '/', 
+      config: userController.addUser
+    },
     {
       method: 'POST',
       path: '/home', 
