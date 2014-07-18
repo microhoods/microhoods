@@ -9,13 +9,13 @@ String.prototype.supplant = function(o) {
   );
 };
 
-var addTag=function(userName, tagName, coordinates) {
+var addTag=function(googleId, tagName, coordinates) {
   //coordinates passed in as array of [lat, lng]
   client.query("INSERT INTO TAGS (user_id, tag, coordinates) VALUES( \
     (SELECT user_id FROM USERS \
-    WHERE username='{userName}'), \
+    WHERE google_id='{googleId}'), \
     '{tagName}', \
-    '{coordinates})');".supplant({userName: userName, tagName: tagName, coordinates: coordinates})
+    '{coordinates})');".supplant({googleId: googleId, tagName: tagName, coordinates: coordinates})
   );
 }
 
@@ -25,15 +25,16 @@ module.exports = {
       reply.file(settings.root + '/www/index.html');
     }
   }, 
+
   addTag: {
     handler: function(request, reply) {
-      console.log(request.payload);
       //loop over each coordinate
-      for (var coord in request.payload) {
+      for (var coord in request.payload.coordinates) {
+        var tags = request.payload.coordinates;
         //loop over each tag
-        for (var i=0; i<request.payload[coord].length; i++) {
+        for (var i = 0; i < tags[coord].length; i++) {
           //add tag
-          addTag('Forest', request.payload[coord][i], coord);
+          addTag(request.payload.googleId, tags[coord][i], coord);
         }
       }
     }, 
@@ -41,13 +42,24 @@ module.exports = {
       parse: true
     }
   },
+
   addUser: {
     handler: function(request, reply) {
-      client.query("INSERT INTO USERS (username) VALUES('{userName}');".supplant({userName: JSON.parse(request.payload)}), function(err) {
-        if (err) {
-          throw err;
-        }
-      });
+      var payload = JSON.parse(request.payload);
+      console.log(payload);
+      client.query("INSERT INTO USERS (username, google_id) \
+        SELECT '{googleDisplayName}', '{googleId}' \
+          WHERE NOT EXISTS (SELECT google_id FROM USERS WHERE google_id='{googleId}');".supplant({googleDisplayName: payload.googleDisplayName, googleId: payload.googleId}));
+
+      // client.query("INSERT INTO USERS (username, google_id) VALUES( \
+      //   SELECT '{googleDisplayName}', '{googleId}' \
+      //   WHERE NOT EXISTS ( \
+      //     SELECT google_id FROM USERS where google_id = '{googleId})');"
+      //   .supplant({googleDisplayName: payload.googleDisplayName, googleId: payload.googleId}), function(err) {
+      //   // if (err) {
+      //   //   throw err;
+      //   // }
+      // });
     },
     payload: {
       parse: true

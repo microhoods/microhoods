@@ -10,11 +10,13 @@ angular.module('microhoods.login', [])
       console.log(error);
     } else if (user) {
       // user authenticated with Firebase
-      console.log('User_ID: ' +  user.id);
       service.user = user;
+      console.log(user);
+      var payload = JSON.stringify({ googleId: user.id, googleDisplayName: user.displayName });
+
       var request = new XMLHttpRequest();
       request.open('POST', '/', true);
-      request.send(JSON.stringify(user.id));
+      request.send(payload);
       $state.transitionTo('home');
     } else {
       // user is logged out

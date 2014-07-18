@@ -68,8 +68,7 @@ var app = angular.module('microhoods.home', [])
         }
       }
     }
-    allTags.userId = fbAuth.user.id;
-    allTags.userName = fbAuth.user.displayName;
+
     return allTags;
   }
 
@@ -140,7 +139,9 @@ var app = angular.module('microhoods.home', [])
 
   $scope.saveTags=function() {
     //get all tags from page
-    var tags=createTags();
+    var tags = {};
+    tags.coordinates = createTags();
+    tags.googleId = fbAuth.user.id;
     console.log('saving');
     console.log(tags);
 
