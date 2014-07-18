@@ -1,7 +1,21 @@
 // sets server defaults 
 var path = require('path'); 
 var rootPath = path.normalize(__dirname + '/../..'); 
-var credentials = require('../../credentials.js');
+if (!process.env.POSTGRES_USER) {
+  var credentials = require('../../credentials.js');
+} else {
+  var credientials = {
+    process: {
+      env: {
+        user: process.env['POSTGRES_USER'],
+        password: process.env['POSTGRES_PASSWORD'],
+        database: process.env['POSTGRES_DATABASE'],
+        host: process.env['POSTGRES_HOST'],
+        port: process.env['POSTGRES_PORT']        
+      }
+    }
+  }
+}
 
 module.exports = {
   root: rootPath, 
