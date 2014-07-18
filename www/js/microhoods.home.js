@@ -1,5 +1,5 @@
 var app = angular.module('microhoods.home', [])
-.controller('map-controller', function($scope, $window) {
+.controller('map-controller', function($scope, $window, fbAuth) {
   //set increment for lat/lng granularity
   var block=.001;
   var conversion=1000
@@ -68,6 +68,8 @@ var app = angular.module('microhoods.home', [])
         }
       }
     }
+    allTags.userId = fbAuth.user.id;
+    allTags.userName = fbAuth.user.displayName;
     return allTags;
   }
 
