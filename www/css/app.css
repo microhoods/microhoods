@@ -79,12 +79,19 @@ body {
 }
 #title {
   position: absolute;
-  padding-left: 2%;
+  height: 5%;
   width: 50%;
   font-size: 1.5em;
   line-height: 1;
-  text-align: left;
+  text-align: center;
 }
+#titleText {
+  height: inherit;
+  width: 10%;
+  display: table-cell;
+  vertical-align: middle;
+}
+
 #personalMap {
   position: absolute;
   top: 0px;
