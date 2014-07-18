@@ -1,5 +1,5 @@
 var app = angular.module('microhoods.home', [])
-.controller('map-controller', function($scope, $window) {
+.controller('map-controller', function($scope, $window, fbAuth) {
   //set increment for lat/lng granularity
   var block=.001;
   var conversion=1000
@@ -14,9 +14,12 @@ var app = angular.module('microhoods.home', [])
   };
 
   var height=$window.document.body.scrollHeight*.90;
-  $window.document.getElementById("map").style.height=height.toString()+'px'
-  var topPos=$window.document.body.scrollHeight*.05;
-  $window.document.getElementById("map").style.top=topPos.toString()+'px'
+  $window.document.getElementById("map").style.height=height.toString()+'px';
+  var topPos=$window.document.body.scrollHeight*.0264;
+  $window.document.getElementById("map").style.top=topPos.toString()+'px';
+  $window.document.getElementById("title").style.height=topPos.toString()+'px';
+  $window.document.getElementById("personalMap").style.height=topPos.toString()+'px';
+  $window.document.getElementById("communityMap").style.height=topPos.toString()+'px';
 
   //initialize map to SF
   var map = L.map('map', {zoomControl: false, attributionControl: false, maxBounds: [[37.7, -122.65], [37.85, -122.3]], minZoom: 12}).setView([37.789, -122.414], 14);
@@ -68,6 +71,7 @@ var app = angular.module('microhoods.home', [])
         }
       }
     }
+
     return allTags;
   }
 
@@ -75,6 +79,7 @@ var app = angular.module('microhoods.home', [])
   var labels={};
   $scope.tag='';
   $scope.addHere=function(distance) {
+    console.log('test');
     if ($scope.tag!=='') {
       // console.log('here:');
       // console.log(here);
@@ -104,7 +109,7 @@ var app = angular.module('microhoods.home', [])
         }, 5000);
       }
     }
-  }
+  };
 
   $scope.searchTags=function() {
     if ($scope.tag!=='') {
@@ -134,11 +139,13 @@ var app = angular.module('microhoods.home', [])
       console.log('searching for:', $scope.tag)
       $scope.tag='';
     }
-  }
+  };
 
   $scope.saveTags=function() {
     //get all tags from page
-    var tags=createTags();
+    var tags = {};
+    tags.coordinates = createTags();
+    tags.googleId = fbAuth.user.id;
     console.log('saving');
     console.log(tags);
 
@@ -210,10 +217,39 @@ var app = angular.module('microhoods.home', [])
 
     //clear all layers
     for (var layer in map._layers) {
-      if (layer!=='22' && layer!=='24') {
+      if (layer!=='15') {
         map.removeLayer(map._layers[layer]);
       }
     }
+
+    //turn on current location finder
+    map.on('locationfound', onLocationFound);
+    map.locate({setView: false, maxZoom: 16});
+
+    //make request for user tags
+    var request = new XMLHttpRequest();
+    request.open('POST', '/home/user', true);
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.onload = function() {
+      var tags = JSON.parse(request.responseText);
+      console.log(tags);
+      for (var tag in tags) {
+        var latlng=tags[tag].coordinates.split(',');
+        latlng[0]=parseFloat(latlng[0]);
+        latlng[1]=parseFloat(latlng[1]);
+
+        markerlng=latlng[1]-(block/3);
+
+        //insert circle
+        new L.circle(latlng, 40, {color: '#DB5A55', weight: 2, opacity: .8}).addTo(map);
+        //insert circle marker so we can always show label
+        var marker=L.circleMarker([latlng[0], markerlng], {color: '#DB5A55', opacity: 0}).setRadius(0).bindLabel(tags[tag].tag, {noHide: true}).addTo(map);   
+      }
+
+
+    };
+    request.send(JSON.stringify(fbAuth.user.id));
+
   };
 });
 

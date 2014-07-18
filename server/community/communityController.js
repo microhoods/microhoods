@@ -55,5 +55,24 @@ module.exports = {
     payload: {
       parse: true
     }    
+  },
+  user: {
+    handler: function(request, reply) {
+      client.query("SELECT tag, coordinates FROM TAGS \
+        WHERE user_id=( \
+          SELECT user_id from USERS \
+          WHERE google_id='{google_id}');".supplant({google_id: request.payload }),
+        function(err, results) {
+          if (err) {
+            console.log(err);
+          }
+          reply(results.rows);
+        } 
+      );      
+    }, 
+    payload: {
+      parse: true
+    }    
   }
+
 };

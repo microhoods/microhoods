@@ -11,6 +11,11 @@ module.exports =  {
       path: '/', 
       config: userController.index
     },
+    { 
+      method: 'POST', 
+      path: '/', 
+      config: userController.addUser
+    },
     {
       method: 'POST',
       path: '/home', 
@@ -26,6 +31,11 @@ module.exports =  {
       path: '/home/search', 
       config: communityController.find
     },
+    {
+      method: 'POST', 
+      path: '/home/user', 
+      config: communityController.user
+    },    
     {
       method: 'GET',
       path: '/css/{css*}', 

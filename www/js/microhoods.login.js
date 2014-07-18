@@ -1,5 +1,6 @@
 angular.module('microhoods.login', [])
 .factory('fbAuth', function($state){
+  // create an authorization service, where we can store/access user data on login
   var ref = new Firebase('https://mcrhds.firebaseio.com');
   var service = {};
   service.user = undefined;
@@ -9,9 +10,13 @@ angular.module('microhoods.login', [])
       console.log(error);
     } else if (user) {
       // user authenticated with Firebase
+      service.user = user;
       console.log(user);
-      console.log('User ID: ' + user.uid + ', Provider: ' + user.provider);
-      service.user = true;
+      var payload = JSON.stringify({ googleId: user.id, googleDisplayName: user.displayName });
+
+      var request = new XMLHttpRequest();
+      request.open('POST', '/', true);
+      request.send(payload);
       $state.transitionTo('home');
     } else {
       // user is logged out
