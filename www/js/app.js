@@ -18,9 +18,10 @@ app.run(function($ionicPlatform, $rootScope, $state, fbAuth) {
     }
   });
 
+  // use authentication service to determine if we have a user logged in for states that require authentication
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams){
     if (toState.authenticate && !fbAuth.user){
-      // User isn’t authenticated
+      // User isn’t authenticated, redirect away from restricted content
       $state.transitionTo('login');
       event.preventDefault(); 
     }

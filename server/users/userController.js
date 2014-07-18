@@ -40,5 +40,17 @@ module.exports = {
     payload: {
       parse: true
     }
+  },
+  addUser: {
+    handler: function(request, reply) {
+      client.query("INSERT INTO USERS (username) VALUES('{userName}');".supplant({userName: JSON.parse(request.payload)}), function(err) {
+        if (err) {
+          throw err;
+        }
+      });
+    },
+    payload: {
+      parse: true
+    }
   }
 };
