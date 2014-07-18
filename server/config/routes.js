@@ -32,6 +32,11 @@ module.exports =  {
       config: communityController.find
     },
     {
+      method: 'POST', 
+      path: '/home/user', 
+      config: communityController.user
+    },    
+    {
       method: 'GET',
       path: '/css/{css*}', 
       config: assetController.css
