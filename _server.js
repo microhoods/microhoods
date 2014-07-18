@@ -5,7 +5,9 @@ app.start(function() {
   //   query.on('row', function(row) {
   //   console.log(row.username);
   // });
-  // var query = client.query("SELECT * FROM TAGS;");
+  // var query = client.query("SELECT tag, coordinates FROM TAGS \
+  //   WHERE tag='education'");
+
   // query.on('row', function(row) {
   //   console.log(row);
   // });
