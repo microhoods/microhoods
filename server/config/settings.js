@@ -4,7 +4,7 @@ var rootPath = path.normalize(__dirname + '/../..');
 if (!process.env.POSTGRES_USER) {
   var credentials = require('../../credentials.js');
 } else {
-  var credientials = {
+  var credentials = {
     process: {
       env: {
         user: process.env['POSTGRES_USER'],
