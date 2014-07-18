@@ -8,7 +8,7 @@ body {
   color: #03606B;
 }
 #map {
-  top: 5%;
+  top: 40px;
   height: 90%;
   width: 100%;
   left: 0px;
@@ -29,6 +29,7 @@ body {
   text-align: center;
   background: #6AA8A5;
   color: #FEF2D8;
+  border: none;
 }
 #addTag:active, #searchTags:active {
   background: #03606B;
@@ -78,11 +79,19 @@ body {
 }
 #title {
   position: absolute;
-  left: 0%;
-  width: 70%;
+  height: 5%;
+  width: 50%;
   font-size: 1.5em;
-  text-align: left;
+  line-height: 1;
+  text-align: center;
 }
+#titleText {
+  height: inherit;
+  width: 10%;
+  display: table-cell;
+  vertical-align: middle;
+}
+
 #personalMap {
   position: absolute;
   top: 0px;
@@ -107,6 +116,10 @@ body {
   width: 100%;
   height: 3%;
   opacity: .9;
+}
+
+button:focus {
+  outline: 0;
 }
 
 .leaflet-label {

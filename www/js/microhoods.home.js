@@ -14,9 +14,12 @@ var app = angular.module('microhoods.home', [])
   };
 
   var height=$window.document.body.scrollHeight*.90;
-  $window.document.getElementById("map").style.height=height.toString()+'px'
-  var topPos=$window.document.body.scrollHeight*.05;
-  $window.document.getElementById("map").style.top=topPos.toString()+'px'
+  $window.document.getElementById("map").style.height=height.toString()+'px';
+  var topPos=$window.document.body.scrollHeight*.0264;
+  $window.document.getElementById("map").style.top=topPos.toString()+'px';
+  $window.document.getElementById("title").style.height=topPos.toString()+'px';
+  $window.document.getElementById("personalMap").style.height=topPos.toString()+'px';
+  $window.document.getElementById("communityMap").style.height=topPos.toString()+'px';
 
   //initialize map to SF
   var map = L.map('map', {zoomControl: false, attributionControl: false, maxBounds: [[37.7, -122.65], [37.85, -122.3]], minZoom: 12}).setView([37.789, -122.414], 14);
@@ -213,10 +216,14 @@ var app = angular.module('microhoods.home', [])
 
     //clear all layers
     for (var layer in map._layers) {
-      if (layer!=='22' && layer!=='24') {
+      if (layer!=='15') {
         map.removeLayer(map._layers[layer]);
       }
     }
+
+    //turn on current location finder
+    map.on('locationfound', onLocationFound);
+    map.locate({setView: false, maxZoom: 16});
   };
 });
 

@@ -1,0 +1,11 @@
+{
+  "name": "microhoods",
+  "private": "true",
+  "devDependencies": {
+    "ionic": "driftyco/ionic-bower#1.0.0-beta.9",
+    "bootstrap-css-only": "*",
+    "angular": "*",
+    "angular-cookies": "*",
+    "angular-ui-router": "*"
+  }
+}
