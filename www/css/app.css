@@ -23,7 +23,7 @@ body {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
 }
-#communityMap, #personalMap {
+#communityMap, #personalMap, #logout {
   width: 25%;
   height: 5%;
   text-align: center;
@@ -94,6 +94,9 @@ body {
   top: 0px;
   right: 0%;
   background: #F28D7A;
+}
+#logout {
+  margin: auto;
 }
 .error {
   position: absolute;
