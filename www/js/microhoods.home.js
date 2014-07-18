@@ -215,10 +215,14 @@ var app = angular.module('microhoods.home', [])
 
     //clear all layers
     for (var layer in map._layers) {
-      if (layer!=='22' && layer!=='24') {
+      if (layer!=='15') {
         map.removeLayer(map._layers[layer]);
       }
     }
+
+    //turn on current location finder
+    map.on('locationfound', onLocationFound);
+    map.locate({setView: false, maxZoom: 16});
   };
 });
 

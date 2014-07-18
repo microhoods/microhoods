@@ -1,12 +1,32 @@
 // sets server defaults 
 var path = require('path'); 
 var rootPath = path.normalize(__dirname + '/../..'); 
-var credentials = require('../../credentials.js');
+if (process===undefined) {
+  var credentials = require('../../credentials.js');
+} else {
+  var credentials = {
+    process: {
+      env: {
+        POSTGRES_USER: process.env['POSTGRES_USER'],
+        POSTGRES_PASSWORD: process.env['POSTGRES_PASSWORD'],
+        POSTGRES_DATABASE: process.env['POSTGRES_DATABASE'],
+        POSTGRES_HOST: process.env['POSTGRES_HOST'],
+        POSTGRES_PORT: process.env['POSTGRES_PORT']        
+      }
+    }
+  };
+}
+
+if (process!==undefined) {
+  var port=process.env.PORT;
+} else {
+  var port=4568;
+}
 
 module.exports = {
   root: rootPath, 
   host: '0.0.0.0',
-  port: parseInt(process.env.PORT, 10) || 4568,
+  port: port,
   options: { 
    cors: { 
      origin: ['*'], 
