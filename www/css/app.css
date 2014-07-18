@@ -8,7 +8,7 @@ body {
   color: #03606B;
 }
 #map {
-  top: 5%;
+  top: 40px;
   height: 90%;
   width: 100%;
   left: 0px;
@@ -78,9 +78,10 @@ body {
 }
 #title {
   position: absolute;
-  left: 0%;
-  width: 70%;
+  padding-left: 2%;
+  width: 50%;
   font-size: 1.5em;
+  line-height: 1;
   text-align: left;
 }
 #personalMap {

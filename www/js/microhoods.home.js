@@ -15,7 +15,7 @@ var app = angular.module('microhoods.home', [])
 
   var height=$window.document.body.scrollHeight*.90;
   $window.document.getElementById("map").style.height=height.toString()+'px'
-  var topPos=$window.document.body.scrollHeight*.05;
+  var topPos=$window.document.body.scrollHeight*.0264;
   $window.document.getElementById("map").style.top=topPos.toString()+'px'
 
   //initialize map to SF
