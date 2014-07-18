@@ -20,7 +20,7 @@ if (process===undefined) {
 module.exports = {
   root: rootPath, 
   host: '0.0.0.0',
-  port: process.env.PORT || 4568,
+  port: parseInt(process.env.PORT, 10) || 4568,
   options: { 
    cors: { 
      origin: ['*'], 
