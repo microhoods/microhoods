@@ -29,6 +29,7 @@ body {
   text-align: center;
   background: #6AA8A5;
   color: #FEF2D8;
+  border: none;
 }
 #addTag:active, #searchTags:active {
   background: #03606B;
