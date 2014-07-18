@@ -31,11 +31,11 @@ module.exports =  {
       path: '/home/search', 
       config: communityController.find
     },
-    // {
-    //   method: 'POST', 
-    //   path: '/home/user', 
-    //   config: communityController.user
-    // },    
+    {
+      method: 'POST', 
+      path: '/home/user', 
+      config: communityController.user
+    },    
     {
       method: 'GET',
       path: '/css/{css*}', 

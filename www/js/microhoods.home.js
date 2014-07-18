@@ -79,6 +79,7 @@ var app = angular.module('microhoods.home', [])
   var labels={};
   $scope.tag='';
   $scope.addHere=function(distance) {
+    console.log('test');
     if ($scope.tag!=='') {
       // console.log('here:');
       // console.log(here);
@@ -108,7 +109,7 @@ var app = angular.module('microhoods.home', [])
         }, 5000);
       }
     }
-  }
+  };
 
   $scope.searchTags=function() {
     if ($scope.tag!=='') {
@@ -138,7 +139,7 @@ var app = angular.module('microhoods.home', [])
       console.log('searching for:', $scope.tag)
       $scope.tag='';
     }
-  }
+  };
 
   $scope.saveTags=function() {
     //get all tags from page
@@ -231,6 +232,7 @@ var app = angular.module('microhoods.home', [])
     request.setRequestHeader('Content-Type', 'application/json');
     request.onload = function() {
       var tags = JSON.parse(request.responseText);
+      console.log(tags);
       for (var tag in tags) {
         var latlng=tags[tag].coordinates.split(',');
         latlng[0]=parseFloat(latlng[0]);

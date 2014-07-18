@@ -58,12 +58,10 @@ module.exports = {
   },
   user: {
     handler: function(request, reply) {
-      var payload = JSON.parse(request.payload);
-      console.log(payload);
       client.query("SELECT tag, coordinates FROM TAGS \
         WHERE user_id=( \
           SELECT user_id from USERS \
-          WHERE google_id='{google_id}');".supplant({google_id: payload }),
+          WHERE google_id='{google_id}');".supplant({google_id: request.payload }),
         function(err, results) {
           if (err) {
             console.log(err);
