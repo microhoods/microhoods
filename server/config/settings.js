@@ -17,16 +17,10 @@ if (process.env.PORT===undefined) {
   };
 }
 
-if (process!==undefined) {
-  var port=process.env.PORT;
-} else {
-  var port=4568;
-}
-
 module.exports = {
   root: rootPath, 
   host: '0.0.0.0',
-  port: port,
+  port: 4568,
   options: { 
    cors: { 
      origin: ['*'], 
