@@ -1,7 +1,6 @@
 var userController = require('../users/userController.js');
 var communityController = require('../community/communityController.js');
 var assetController = require('../assets/assetController.js')
-var settings = require('../config/settings.js');  
 
 module.exports =  {
 
@@ -17,14 +16,14 @@ module.exports =  {
       config: userController.addUser
     },
     {
-      method: 'POST',
-      path: '/home', 
-      config: userController.addTag
-    },
-    {
       method: 'GET', 
       path: '/home', 
       config: communityController.index
+    },
+    {
+      method: 'POST',
+      path: '/home', 
+      config: userController.addTag
     },
     {
       method: 'POST', 
