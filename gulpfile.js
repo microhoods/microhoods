@@ -39,12 +39,6 @@ gulp.task('serve', function() {
     });
 });
 
-// clean dist files before deployment
-gulp.task('clean', function() {
-  return gulp.src(paths.dist, {read: false})
-    .pipe(clean())
-});
-
 // lint js files 
 gulp.task('lint', function() {
   return gulp.src('./www/js/*.js')
@@ -84,6 +78,12 @@ gulp.task('html', function() {
     .pipe(refresh(client));
 });
 
+// clean dist files before deployment
+gulp.task('clean', function() {
+  return gulp.src(paths.dist, {read: false})
+    .pipe(clean())
+});
+
 // update files on change
 gulp.task('watch', function() {
   gulp.watch(paths.scripts, ['lint', 'scripts']);
@@ -91,5 +91,5 @@ gulp.task('watch', function() {
   gulp.watch(paths.html, ['html']);
 });
 
-gulp.task('default', ['reload', 'serve', 'clean', 'watch', 'lint']);
+gulp.task('default', ['reload', 'serve', 'clean', 'lint', 'scripts', 'styles', 'html', 'watch']);
 
