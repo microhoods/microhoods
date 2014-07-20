@@ -18,24 +18,28 @@
     "underscore": "^1.6.0"
   },
   "devDependencies": {
-    "gulp": "*",
+    "gulp": "^3.8.6",
     "gulp-bower": "*",
-    "gulp-jshint": "*",
+    "gulp-jshint": "^1.7.1",
     "gulp-notify": "^1.4.0",
-    "gulp-livereload": "*",
-    "gulp-nodemon": "*",
+    "gulp-livereload": "^2.1.0",
+    "gulp-nodemon": "^1.0.4",
     "gulp-plumber": "*",
     "gulp-task-listing": "*",
-    "gulp-concat": "*",
-    "gulp-uglify": "*",
+    "gulp-concat": "^2.3.3",
+    "gulp-uglify": "^0.3.1",
     "gulp-stylus": "*",
     "gulp-util": "^2.2.14",
     "morgan": "*",
     "body-parser": "*",
-    "tiny-lr": "*",
+    "tiny-lr": "0.0.9",
     "jshint-stylish": "*",
     "bower": "^1.3.3",
     "shelljs": "^0.3.0",
-    "lab": "^3.2.1"
+    "lab": "^3.2.1",
+    "gulp-minify-html": "^0.1.4",
+    "gulp-minify-css": "^0.3.7",
+    "gulp-rename": "^1.2.0",
+    "gulp-clean": "^0.3.1"
   }
 }

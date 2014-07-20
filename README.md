@@ -1,6 +1,3 @@
-Microhoods - README
-=====================
-
 # Microhoods
 
 > A social cartography project. 

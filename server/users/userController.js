@@ -50,16 +50,6 @@ module.exports = {
       client.query("INSERT INTO USERS (username, google_id) \
         SELECT '{googleDisplayName}', '{googleId}' \
           WHERE NOT EXISTS (SELECT google_id FROM USERS WHERE google_id='{googleId}');".supplant({googleDisplayName: payload.googleDisplayName, googleId: payload.googleId}));
-
-      // client.query("INSERT INTO USERS (username, google_id) VALUES( \
-      //   SELECT '{googleDisplayName}', '{googleId}' \
-      //   WHERE NOT EXISTS ( \
-      //     SELECT google_id FROM USERS where google_id = '{googleId})');"
-      //   .supplant({googleDisplayName: payload.googleDisplayName, googleId: payload.googleId}), function(err) {
-      //   // if (err) {
-      //   //   throw err;
-      //   // }
-      // });
     },
     payload: {
       parse: true
