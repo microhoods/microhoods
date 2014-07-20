@@ -13,6 +13,8 @@ var app = angular.module('microhoods.home', [])
     'color': '#DB5A55'
   };
 
+
+  //place map on screen with correct proportions
   var height=$window.document.body.scrollHeight*.90;
   $window.document.getElementById("map").style.height=height.toString()+'px';
   var topPos=$window.document.body.scrollHeight*.06;
@@ -26,18 +28,16 @@ var app = angular.module('microhoods.home', [])
 
   L.tileLayer('http://api.tiles.mapbox.com/v3/austentalbot.gfeh9hg8/{z}/{x}/{y}.png', {maxZoom: 18}).addTo(map);
 
-  //zoom to current location
+  //show current location every three seconds
   var here=undefined;
   map.locate({setView: true, maxZoom: 16});
   setInterval(function() {
     map.locate({setView: false, maxZoom: 16});
-  }, 5000);
+  }, 3000);
 
   var hereMarker=undefined;
   var onLocationFound = function (e) {
-    // console.log(e);
     var radius = 100;
-    // console.log(hereMarker);
     if (hereMarker===undefined) {
       hereMarker= new L.circle(e.latlng, radius, {color: '#03606B', weight: 2, opacity: .8});
       map.addLayer(hereMarker);
@@ -47,11 +47,12 @@ var app = angular.module('microhoods.home', [])
       map.addLayer(hereMarker);
     }
     here=e.latlng;
-    // console.log(here.lat.toFixed(3) + here.lng.toFixed(3));
   };
 
   map.on('locationfound', onLocationFound);
 
+  //create tags for lat-lng coordinates surrounding an area
+  //use strings because of precision/rounding issue
   var createTags=function() {
     var allTags={};
     for (var coordStr in labels) {
@@ -78,18 +79,18 @@ var app = angular.module('microhoods.home', [])
   var wait=undefined;
   var labels={};
   $scope.tag='';
+
+  //add tag to current location
   $scope.addHere=function(distance) {
     console.log('test');
     if ($scope.tag!=='') {
-      // console.log('here:');
-      // console.log(here);
       var latlng=here.lat.toFixed(3) + ',' + here.lng.toFixed(3);
 
       labels[latlng] = labels[latlng] || [];
       console.dir(labels);
       labels[latlng].push($scope.tag);
-      // console.log(labels);
 
+      //add circle to show location and add circle marker with zero radius so we can bind a label that is always visible
       new L.circle(here, distance, {color: '#DB5A55', weight: 2, opacity: .8}).addTo(map);
       L.circleMarker(here, {color: '#DB5A55', opacity: 0}).setRadius(0).bindLabel($scope.tag, {noHide: true}).addTo(map);
 
@@ -111,9 +112,9 @@ var app = angular.module('microhoods.home', [])
     }
   };
 
+  //search through all users' tags
   $scope.searchTags=function() {
     if ($scope.tag!=='') {
-
 
       var request = new XMLHttpRequest();
       request.open('POST', '/home/search', true);
@@ -132,33 +133,29 @@ var app = angular.module('microhoods.home', [])
           //insert circle marker so we can always show label
           var marker=L.circleMarker([latlng[0], markerlng], {color: '#DB5A55', opacity: 0}).setRadius(0).bindLabel(tags[tag].tag, {noHide: true}).addTo(map);   
         }
-
-
       };
       request.send(JSON.stringify($scope.tag));
-      console.log('searching for:', $scope.tag)
       $scope.tag='';
     }
   };
 
+  //send tags to server to be saved in database with user information
   $scope.saveTags=function() {
     //get all tags from page
     var tags = {};
     tags.coordinates = createTags();
     tags.googleId = fbAuth.user.id;
-    console.log('saving');
-    console.log(tags);
 
     //send tags to server for saving
     var request = new XMLHttpRequest();
     request.open('POST', '/home', true);
     request.setRequestHeader('Content-Type', 'application/json');
     request.send(JSON.stringify(tags));
-    console.log(request);
 
     labels={};
   };
 
+  //switch to community view which shows top tag for each lat-lng coorinate
   $scope.communitySwitch = function() {
     //switch colors for two buttons
     document.getElementById("personalMap").style.background='#F28D7A';
@@ -167,11 +164,13 @@ var app = angular.module('microhoods.home', [])
     //turn off current location finder
     map.off('locationfound', onLocationFound);
 
-    //clear all layers
+    //clear all layers except for map which should be first layer
+    var mapLayer=false;
     for (var layer in map._layers) {
-
-      if (layer!=='15') {
+      if (mapLayer===true) {
         map.removeLayer(map._layers[layer]);
+      } else {
+        mapLayer=true;
       }
     }
 
@@ -196,11 +195,6 @@ var app = angular.module('microhoods.home', [])
           new L.circle(latlng, 40, {color: '#DB5A55', weight: 2, opacity: .8}).addTo(map);
           //insert circle marker so we can always show label
           var marker=L.circleMarker([latlng[0], markerlng], {color: '#DB5A55', opacity: 0}).setRadius(0).bindLabel(allCoords[coord].tag, {noHide: true}).addTo(map);   
-
-        //   if (coord!=='undefined') {
-        //     var label=allCoords[coord]['label'];
-        //     var sent=allCoords[coord]['sentiment'];
-        //   }
         }
       } 
     };
@@ -215,10 +209,13 @@ var app = angular.module('microhoods.home', [])
     document.getElementById("personalMap").style.background='#DB5A55';
     document.getElementById("communityMap").style.background='#F28D7A';
 
-    //clear all layers
+    //clear all layers except for map which should be first layer
+    var mapLayer=false;
     for (var layer in map._layers) {
-      if (layer!=='15') {
+      if (mapLayer===true) {
         map.removeLayer(map._layers[layer]);
+      } else {
+        mapLayer=true;
       }
     }
 
@@ -246,10 +243,8 @@ var app = angular.module('microhoods.home', [])
         var marker=L.circleMarker([latlng[0], markerlng], {color: '#DB5A55', opacity: 0}).setRadius(0).bindLabel(tags[tag].tag, {noHide: true}).addTo(map);   
       }
 
-
     };
     request.send(JSON.stringify(fbAuth.user.id));
-
   };
 });
 
