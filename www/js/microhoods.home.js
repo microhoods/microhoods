@@ -80,6 +80,18 @@ var app = angular.module('microhoods.home', [])
   var labels={};
   $scope.tag='';
 
+  //clear all layers except for map which should be first layer
+  $scope.clearMap=function(){
+    var mapLayer=false;
+    for (var layer in map._layers) {
+      if (mapLayer===true) {
+        map.removeLayer(map._layers[layer]);
+      } else {
+        mapLayer=true;
+      }
+    }
+  }
+
   //add tag to current location
   $scope.addHere=function(distance) {
     console.log('test');
@@ -114,6 +126,8 @@ var app = angular.module('microhoods.home', [])
 
   //search through all users' tags
   $scope.searchTags=function() {
+    $scope.clearMap();
+
     if ($scope.tag!=='') {
 
       var request = new XMLHttpRequest();
@@ -164,15 +178,7 @@ var app = angular.module('microhoods.home', [])
     //turn off current location finder
     map.off('locationfound', onLocationFound);
 
-    //clear all layers except for map which should be first layer
-    var mapLayer=false;
-    for (var layer in map._layers) {
-      if (mapLayer===true) {
-        map.removeLayer(map._layers[layer]);
-      } else {
-        mapLayer=true;
-      }
-    }
+    $scope.clearMap();
 
     //get tags from server, filtered to most popular
     request = new XMLHttpRequest();
@@ -209,15 +215,7 @@ var app = angular.module('microhoods.home', [])
     document.getElementById("personalMap").style.background='#DB5A55';
     document.getElementById("communityMap").style.background='#F28D7A';
 
-    //clear all layers except for map which should be first layer
-    var mapLayer=false;
-    for (var layer in map._layers) {
-      if (mapLayer===true) {
-        map.removeLayer(map._layers[layer]);
-      } else {
-        mapLayer=true;
-      }
-    }
+    $scope.clearMap();
 
     //turn on current location finder
     map.on('locationfound', onLocationFound);
@@ -246,7 +244,7 @@ var app = angular.module('microhoods.home', [])
     };
     request.send(JSON.stringify(fbAuth.user.id));
   };
-  
+
   // perform initial load of user's personal tags
   $scope.personalSwitch();
 });
