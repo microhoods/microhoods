@@ -26,7 +26,7 @@ var app = angular.module('microhoods.home', [])
   //initialize map to SF
   var map = L.map('map', {zoomControl: false, attributionControl: false, maxBounds: [[37.7, -122.65], [37.85, -122.3]], minZoom: 12}).setView([37.789, -122.414], 14);
 
-  L.tileLayer('http://api.tiles.mapbox.com/v3/austentalbot.gfeh9hg8/{z}/{x}/{y}.png', {maxZoom: 18}).addTo(map);
+  L.tileLayer('http://api.tiles.mapbox.com/v3/imtiazmajeed.j17fdf0d/{z}/{x}/{y}.png', {maxZoom: 18}).addTo(map);
 
   //show current location every three seconds
   var here=undefined;
