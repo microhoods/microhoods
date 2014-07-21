@@ -36,10 +36,13 @@ module.exports = {
         GROUP BY c.coordinates;',
         function(err, results) {
           if (err) {
+            console.log(err);
             throw err;
+            reply();
+          } else {
+            reply(JSON.stringify(results.rows));
           }
 
-          reply(JSON.stringify(results.rows));
         }
       );
     }
@@ -53,8 +56,10 @@ module.exports = {
         function(err, results) {
           if (err) {
             console.log(err);
+            reply();
+          } else {
+            reply(JSON.stringify(results.rows));
           }
-          reply(JSON.stringify(results.rows));
         } 
       );      
     }   

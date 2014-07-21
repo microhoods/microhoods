@@ -80,11 +80,13 @@ module.exports = {
         function(err, results) {
           if (err) {
             console.log(err);
+            reply();
+          } else {
+            console.log('results');
+            console.log(results);
+            console.log('google_id', request.payload);
+            reply(JSON.stringify(results.rows));
           }
-          console.log('results');
-          console.log(results);
-          console.log('google_id', request.payload);
-          reply(JSON.stringify(results.rows));
         }
       );      
     }  
