@@ -49,7 +49,7 @@ module.exports = {
   findTag: {
     handler: function(request, reply) {
       client.query("SELECT tag, coordinates FROM TAGS \
-        WHERE tag='{tagName}';".supplant({ tagName: request.payload }),
+        WHERE LOWER(tag)=LOWER('{tagName}');".supplant({ tagName: request.payload }),
         function(err, results) {
           if (err) {
             console.log(err);
