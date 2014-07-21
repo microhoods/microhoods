@@ -23,9 +23,9 @@ app.config(function($stateProvider, $urlRouterProvider) {
     url: '/login',
     templateUrl: 'html/login.html'
   })
-  .state('community', {
-    url: '/community',
-    templateUrl: 'html/community.html',
+  .state('about', {
+    url: '/about',
+    templateUrl: 'html/login.html',
   });
 });
 

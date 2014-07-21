@@ -24,9 +24,13 @@ angular.module('microhoods.login', [])
 
   return service;
 })
-.controller('login-controller', function($scope, fbAuth){
+.controller('login-controller', function($scope, $state, fbAuth){
   $scope.authenticate = function(){
-    fbAuth.auth.login('google');
+    if(fbAuth.user){
+      $state.transitionTo('home');
+    }else{
+      fbAuth.auth.login('google');
+    }
   }
 
   $scope.logout = function(){
@@ -34,5 +38,5 @@ angular.module('microhoods.login', [])
       fbAuth.auth.logout();
       window.location.reload();
     }
-  }  
+  }
 });

@@ -1,5 +1,5 @@
 var app = angular.module('microhoods.home', [])
-.controller('map-controller', function($scope, $window, fbAuth) {
+.controller('map-controller', function($scope, $window, $state, fbAuth) {
   //set increment for lat/lng granularity
   var block=.001;
   var conversion=1000
@@ -65,6 +65,10 @@ var app = angular.module('microhoods.home', [])
         mapLayer=true;
       }
     }
+  }
+
+  $scope.about=function(){
+    $state.transitionTo('about');
   }
 
   //add tag to current location
