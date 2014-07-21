@@ -11,7 +11,6 @@ angular.module('microhoods.login', [])
     } else if (user) {
       // user authenticated with Firebase
       service.user = user;
-      console.log(user);
       var payload = JSON.stringify({ googleId: user.id, googleDisplayName: user.displayName });
 
       var request = new XMLHttpRequest();

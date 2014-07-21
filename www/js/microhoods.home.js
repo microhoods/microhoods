@@ -56,12 +56,10 @@ var app = angular.module('microhoods.home', [])
   var createTags=function() {
     var allTags={};
     for (var coordStr in labels) {
-      console.log(labels[coordStr]);
       var coords=coordStr.split(',');
       coords[0]=parseInt(coords[0].replace(/\./g, ''));
       coords[1]=parseInt(coords[1].replace(/\./g, ''));
 
-      // console.log(coords);
       for (var i=coords[0]-1; i<=coords[0]+1; i++) {
         var iStr=i.toString()
         for (var j=coords[1]-1; j<=coords[1]+1; j++) {
@@ -94,12 +92,10 @@ var app = angular.module('microhoods.home', [])
 
   //add tag to current location
   $scope.addHere=function(distance) {
-    console.log('test');
     if ($scope.tag!=='') {
       var latlng=here.lat.toFixed(3) + ',' + here.lng.toFixed(3);
 
       labels[latlng] = labels[latlng] || [];
-      console.dir(labels);
       labels[latlng].push($scope.tag);
 
       //add circle to show location and add circle marker with zero radius so we can bind a label that is always visible
@@ -188,9 +184,7 @@ var app = angular.module('microhoods.home', [])
       if (request.status >= 200 && request.status < 400){
         // repopulate map with most popular tags
         var allCoords = JSON.parse(request.responseText);
-        console.log(allCoords);
         for (var coord in allCoords) {
-          console.log(allCoords[coord]);
           var latlng=allCoords[coord].coordinates.split(',');
           latlng[0]=parseFloat(latlng[0]);
           latlng[1]=parseFloat(latlng[1]);
@@ -227,7 +221,6 @@ var app = angular.module('microhoods.home', [])
     request.setRequestHeader('Content-Type', 'application/json');
     request.onload = function() {
       var tags = JSON.parse(request.responseText);
-      console.log(tags);
       for (var tag in tags) {
         var latlng=tags[tag].coordinates.split(',');
         latlng[0]=parseFloat(latlng[0]);
