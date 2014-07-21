@@ -14,21 +14,21 @@ String.prototype.supplant = function(o) {
 };
 
 // query to add a tag
-// var addTag=function(googleId, tagName, coordinates) {
-//   //coordinates passed in as array of [lat, lng]
-//   client.query("INSERT INTO TAGS (user_id, tag, coordinates) VALUES( \
-//     (SELECT user_id FROM USERS \
-//     WHERE google_id='{googleId}'), \
-//     '{tagName}', \
-//     '{coordinates})');".supplant({googleId: googleId, tagName: tagName, coordinates: coordinates}), 
-//   function(err) {
-//     if (err) {
-//       throw err;
-//     }
-//     reply();
-//   }
-//   );
-// }
+var addTag=function(googleId, tagName, coordinates) {
+  //coordinates passed in as array of [lat, lng]
+  client.query("INSERT INTO TAGS (user_id, tag, coordinates) VALUES( \
+    (SELECT user_id FROM USERS \
+    WHERE google_id='{googleId}'), \
+    '{tagName}', \
+    '{coordinates})');".supplant({googleId: googleId, tagName: tagName, coordinates: coordinates}), 
+  function(err) {
+    if (err) {
+      throw err;
+    }
+    reply();
+  }
+  );
+}
 
 module.exports = { 
   index: { 
@@ -47,23 +47,10 @@ module.exports = {
         //loop over each tag
         for (var i = 0; i < tags[coord].length; i++) {
           //add tag
-          // addTag(request.payload.googleId, tags[coord][i], coord);
-          (function(googleId, tagName, coordinates) {
-            //coordinates passed in as array of [lat, lng]
-            client.query("INSERT INTO TAGS (user_id, tag, coordinates) VALUES( \
-              (SELECT user_id FROM USERS \
-              WHERE google_id='{googleId}'), \
-              '{tagName}', \
-              '{coordinates})');".supplant({googleId: googleId, tagName: tagName, coordinates: coordinates}), 
-            function(err) {
-              if (err) {
-                throw err;
-              }
-              reply();
-            })
-          })(request.payload.googleId, tags[coord][i], coord);
+          addTag(request.payload.googleId, tags[coord][i], coord);
         }
       }
+      reply();
     }
   },
 
