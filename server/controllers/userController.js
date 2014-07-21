@@ -81,6 +81,9 @@ module.exports = {
           if (err) {
             console.log(err);
           }
+          console.log('results');
+          console.log(results);
+          console.log('google_id', request.payload);
           reply(JSON.stringify(results.rows));
         }
       );      
