@@ -1,28 +1,13 @@
-Mon Jul 21 2014 11:17:47 GMT-0700 (PDT):
-{ [Error: getaddrinfo ENOTFOUND]
-  stack: [Getter/Setter],
-  code: 'ENOTFOUND',
-  errno: 'ENOTFOUND',
-  syscall: 'getaddrinfo',
-  __frame: 
-   { name: 'updateSite__10',
-     line: 546,
-     file: '/Users/austentalbot/.nvm/v0.10.29/lib/node_modules/azure-cli/lib/commands/asm/websites/websitesclient._js',
-     prev: 
-      { name: '__12',
-        line: 836,
-        file: '/Users/austentalbot/.nvm/v0.10.29/lib/node_modules/azure-cli/lib/commands/asm/site._js',
-        prev: undefined,
-        active: false,
-        offset: 13,
-        col: 10 },
-     active: false,
-     offset: 7,
-     col: 13 },
-  rawStack: [Getter] }
-Error: getaddrinfo ENOTFOUND
-    at errnoException (dns.js:37:11)
-    at Object.onanswer [as oncomplete] (dns.js:124:16)
-    at updateSite__10 (/Users/austentalbot/.nvm/v0.10.29/lib/node_modules/azure-cli/lib/commands/asm/websites/websitesclient._js:553:13)
-    at __12 (/Users/austentalbot/.nvm/v0.10.29/lib/node_modules/azure-cli/lib/commands/asm/site._js:849:10)
+Mon Jul 21 2014 12:28:29 GMT-0700 (PDT):
+<Error 3c 21 44 4f 43 54 59 50 45 20 48 54 4d 4c 20 50 55 42 4c 49 43 20 22 2d 2f 2f 57 33 43 2f 2f 44 54 44 20 48 54 4d 4c 20 34 2e 30 31 2f 2f 45 4e 22 22 68 ...>
+Error
+    at Function.ServiceClient._normalizeError (/Users/austentalbot/.nvm/v0.10.29/lib/node_modules/azure-cli/node_modules/azure-common/lib/services/serviceclient.js:785:23)
+    at ScmService.ServiceClient._processResponse (/Users/austentalbot/.nvm/v0.10.29/lib/node_modules/azure-cli/node_modules/azure-common/lib/services/serviceclient.js:450:41)
+    at processResponseCallback (/Users/austentalbot/.nvm/v0.10.29/lib/node_modules/azure-cli/node_modules/azure-common/lib/services/serviceclient.js:213:35)
+    at IncomingMessage.<anonymous> (/Users/austentalbot/.nvm/v0.10.29/lib/node_modules/azure-cli/node_modules/azure-common/lib/services/serviceclient.js:242:17)
+    at IncomingMessage.emit (events.js:117:20)
+    at _stream_readable.js:929:16
+    at process._tickCallback (node.js:419:13)
+    at doLogStream (/Users/austentalbot/.nvm/v0.10.29/lib/node_modules/azure-cli/lib/commands/asm/site.log._js:259:11)
+    at __2 (/Users/austentalbot/.nvm/v0.10.29/lib/node_modules/azure-cli/lib/commands/asm/site.log._js:96:18)
 
