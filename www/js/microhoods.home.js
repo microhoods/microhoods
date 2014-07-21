@@ -37,7 +37,7 @@ var app = angular.module('microhoods.home', [])
 
   var hereMarker=undefined;
   var onLocationFound = function (e) {
-    var radius = 100;
+    var radius = 60;
     if (hereMarker===undefined) {
       hereMarker= new L.circle(e.latlng, radius, {color: '#03606B', weight: 2, opacity: .8});
       map.addLayer(hereMarker);
