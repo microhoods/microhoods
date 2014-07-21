@@ -23,8 +23,10 @@ var addTag=function(googleId, tagName, coordinates) {
     '{coordinates})');".supplant({googleId: googleId, tagName: tagName, coordinates: coordinates}), 
   function(err) {
     if (err) {
+      console.log('addTag error', err);
       throw err;
     }
+    reply();
   });
 }
 
@@ -62,7 +64,8 @@ module.exports = {
           WHERE google_id='{googleId}');".supplant({googleDisplayName: payload.googleDisplayName, googleId: payload.googleId}), 
         function(err, results) {
           if (err) {
-            console.log(err);
+            console.log('addUser error', err);
+            throw(err);
           }
           reply();
         }
@@ -79,6 +82,7 @@ module.exports = {
           WHERE google_id='{google_id}');".supplant({google_id: request.payload }),
         function(err, results) {
           if (err) {
+            console.log('findUserTags error', err);
             console.log(err);
             reply();
           } else {
