@@ -75,7 +75,7 @@ module.exports = {
           if (err) {
             console.log(err);
           }
-          reply(results.rows);
+          reply(JSON.stringify(results.rows));
         }
       );      
     }  
