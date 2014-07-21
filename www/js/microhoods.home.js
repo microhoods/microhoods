@@ -246,6 +246,9 @@ var app = angular.module('microhoods.home', [])
     };
     request.send(JSON.stringify(fbAuth.user.id));
   };
+  
+  // perform initial load of user's personal tags
+  $scope.personalSwitch();
 });
 
 
