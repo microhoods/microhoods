@@ -51,29 +51,6 @@ var app = angular.module('microhoods.home', [])
 
   map.on('locationfound', onLocationFound);
 
-  //create tags for lat-lng coordinates surrounding an area
-  //use strings because of precision/rounding issue
-  var createTags=function() {
-    var allTags={};
-    for (var coordStr in labels) {
-      var coords=coordStr.split(',');
-      coords[0]=parseInt(coords[0].replace(/\./g, ''));
-      coords[1]=parseInt(coords[1].replace(/\./g, ''));
-
-      for (var i=coords[0]-1; i<=coords[0]+1; i++) {
-        var iStr=i.toString()
-        for (var j=coords[1]-1; j<=coords[1]+1; j++) {
-          var jStr=j.toString()
-          var point=iStr.substring(0, iStr.length-3)+'.'+iStr.substring(iStr.length-3)+','+jStr.substring(0, jStr.length-3)+'.'+jStr.substring(jStr.length-3);
-          allTags[point]=allTags[point] || [];
-          allTags[point]=allTags[point].concat(labels[coordStr])
-        }
-      }
-    }
-
-    return allTags;
-  }
-
   var wait=undefined;
   var labels={};
   $scope.tag='';
@@ -153,7 +130,7 @@ var app = angular.module('microhoods.home', [])
   $scope.saveTags=function() {
     //get all tags from page
     var tags = {};
-    tags.coordinates = createTags();
+    tags.coordinates = labels;
     tags.googleId = fbAuth.user.id;
 
     //send tags to server for saving
