@@ -12,6 +12,10 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var jshint = require('gulp-jshint');
 
+// The gulpfile has been set up to create a dist file for deployment. 
+// It has not been used in our workflow and it will be up to you to 
+// impletement it if you so choose. 
+
 // creates reference for app files 
 var paths = { 
   scripts: ['./www/js/*.js', 'www/lib/**/*.js'], 

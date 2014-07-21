@@ -1,12 +1,12 @@
-var userController = require('../users/userController.js');
-var communityController = require('../community/communityController.js');
-var assetController = require('../assets/assetController.js')
+var userController = require('../controllers/userController.js');
+var communityController = require('../controllers/communityController.js');
+var assetController = require('../controllers/assetController.js');
 
 module.exports =  {
 
     routeTable: [
     { 
-      method: 'GET', 
+      method: 'GET',
       path: '/', 
       config: userController.index
     },
@@ -18,7 +18,7 @@ module.exports =  {
     {
       method: 'GET', 
       path: '/home', 
-      config: communityController.index
+      config: communityController.mostCommonTags
     },
     {
       method: 'POST',
@@ -28,12 +28,12 @@ module.exports =  {
     {
       method: 'POST', 
       path: '/home/search', 
-      config: communityController.find
+      config: communityController.findTag
     },
     {
       method: 'POST', 
       path: '/home/user', 
-      config: communityController.user
+      config: userController.findUserTags
     },    
     {
       method: 'GET',

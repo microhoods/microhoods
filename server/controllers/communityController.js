@@ -1,5 +1,9 @@
 var settings = require('../config/settings.js'); 
 
+// This does variable substitution on a string. It scans through the string 
+// looking for expressions enclosed in { } braces. If an expression is found, 
+// use it as a key on the object, and if the key has a string value or number 
+// value, it is substituted for the bracket expression and it repeats.
 String.prototype.supplant = function(o) {
   return this.replace(/{([^{}]*)}/g,
     function (a, b) {
@@ -9,8 +13,9 @@ String.prototype.supplant = function(o) {
   );
 };
 
-module.exports = {  
-  index: {
+module.exports = { 
+  // query for the most common tags
+  mostCommonTags: {
     handler: function(request, reply) {
       client.query(' \
         WITH tagCounts AS \
@@ -40,7 +45,8 @@ module.exports = {
     }
   }, 
 
-  find: {
+  // query to find a specific tag
+  findTag: {
     handler: function(request, reply) {
       client.query("SELECT tag, coordinates FROM TAGS \
         WHERE tag='{tagName}';".supplant({ tagName: request.payload }),
@@ -51,28 +57,6 @@ module.exports = {
           reply(results.rows);
         } 
       );      
-    }, 
-    payload: {
-      parse: true
-    }    
-  },
-  user: {
-    handler: function(request, reply) {
-      client.query("SELECT tag, coordinates FROM TAGS \
-        WHERE user_id=( \
-          SELECT user_id from USERS \
-          WHERE google_id='{google_id}');".supplant({google_id: request.payload }),
-        function(err, results) {
-          if (err) {
-            console.log(err);
-          }
-          reply(results.rows);
-        } 
-      );      
-    }, 
-    payload: {
-      parse: true
-    }    
+    }   
   }
-
 };
