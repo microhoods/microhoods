@@ -100,6 +100,7 @@ var app = angular.module('microhoods.home', [])
   //search through all users' tags
   $scope.searchTags=function() {
     $scope.clearMap();
+    map.locate({setView: false, maxZoom: 16});
 
     if ($scope.tag!=='') {
 
