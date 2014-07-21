@@ -25,9 +25,7 @@ var addTag=function(googleId, tagName, coordinates) {
     if (err) {
       throw err;
     }
-    reply();
-  }
-  );
+  });
 }
 
 module.exports = { 
