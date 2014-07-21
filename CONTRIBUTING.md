@@ -1,5 +1,4 @@
-Microhoods - CONTRIBUTING
-=====================
+# Contributing
 
 ## General Workflow
 
