@@ -36,13 +36,13 @@ module.exports = {
         GROUP BY c.coordinates;',
         function(err, results) {
           if (err) {
+            console.log('mostCommonTags error', err);
             console.log(err);
             throw err;
             reply();
           } else {
             reply(JSON.stringify(results.rows));
           }
-
         }
       );
     }
@@ -55,7 +55,7 @@ module.exports = {
         WHERE LOWER(tag)=LOWER('{tagName}');".supplant({ tagName: request.payload }),
         function(err, results) {
           if (err) {
-            console.log(err);
+            console.log('findTag error', err);
             reply();
           } else {
             reply(JSON.stringify(results.rows));

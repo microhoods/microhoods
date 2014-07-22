@@ -1,4 +1,4 @@
-Mon Jul 21 2014 14:59:24 GMT-0700 (PDT):
+Mon Jul 21 2014 16:18:03 GMT-0700 (PDT):
 <Error 3c 21 44 4f 43 54 59 50 45 20 48 54 4d 4c 20 50 55 42 4c 49 43 20 22 2d 2f 2f 57 33 43 2f 2f 44 54 44 20 48 54 4d 4c 20 34 2e 30 31 2f 2f 45 4e 22 22 68 ...>
 Error
     at Function.ServiceClient._normalizeError (/Users/austentalbot/.nvm/v0.10.29/lib/node_modules/azure-cli/node_modules/azure-common/lib/services/serviceclient.js:785:23)
