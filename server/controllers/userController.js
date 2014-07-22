@@ -26,7 +26,6 @@ var addTag=function(googleId, tagName, coordinates) {
       console.log('addTag error', err);
       throw err;
     }
-    reply();
   });
 }
 
