@@ -25,8 +25,9 @@ client.on('error', function(clientError){
   console.log(clientError);
   console.log(clientError.stack);
   client.connect(function(connectError) {
-  if (connectError) {
-    console.log(connectError);
+    if (connectError) {
+      console.log(connectError);
+    };
   });
 });
 
