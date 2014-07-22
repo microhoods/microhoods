@@ -82,6 +82,7 @@ module.exports = {
           WHERE google_id='{google_id}');".supplant({google_id: request.payload }),
         function(err, results) {
           if (err) {
+            console.log('google_id', request.payload);
             console.log('findUserTags error', err);
             console.log(err);
             reply();

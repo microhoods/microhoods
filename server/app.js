@@ -14,6 +14,13 @@ if (process.env.PORT) {
   app._port = process.env.PORT;
 }
 
+//catch errors
+process.on('uncaughtException', function(err) {
+  // handle the error safely
+  console.log('uncaught error: ');
+  console.log(err);
+});
+
 // connect to postgresql database
 client = new pg.Client(settings.client);
 client.connect(function(error) {
