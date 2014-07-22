@@ -22,32 +22,23 @@ process.on('uncaughtException', function(err) {
 });
 
 // connect to postgresql database
-var client = new pg.Client(settings.client);
+client = new pg.Client(settings.client);
 client.connect(function(error) {
   if (error) {
     console.log('postgres connection error', error);
   }
 });
-client.on('error', function(clientError){
-  console.log(clientError);
-  console.log(clientError.stack);
-  client.connect(function(connectError) {
-    if (connectError) {
-      console.log(connectError);
-    };
-  });
-});
 
-setInterval(function(){
-  console.log('keeping connection to postgresql...');
-  client.query("SELECT tag FROM TAGS;", function(err, results) {
-    if (err) {
-      console.log(err);
-    }else{
-      console.log('...anti-idle success');
-    }
-  });
-}.bind(), 60000);
+// setInterval(function(){
+//   console.log('keeping connection to postgresql...');
+//   client.query("SELECT tag FROM TAGS;", function(err, results) {
+//     if (err) {
+//       console.log(err);
+//     }else{
+//       console.log('...anti-idle success');
+//     }
+//   });
+// }.bind(), 60000);
 
 app.route(routes.routeTable);
 
