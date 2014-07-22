@@ -40,7 +40,11 @@ client.on('error', function(clientError){
 
 setInterval(function(){
   console.log('keeping connection to postgresql...');
-  client.connect();
+  client.connect(function(error) {
+    if (error) {
+      console.log('postgres connection error', error);
+    }
+  });
   // client.query("SELECT tag FROM TAGS;", function(err, results) {
   //   if (err) {
   //     console.log(err);
