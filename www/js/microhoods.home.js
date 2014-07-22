@@ -77,13 +77,14 @@ var app = angular.module('microhoods.home', [])
       var latlng=here.lat.toFixed(3) + ',' + here.lng.toFixed(3);
 
       labels[latlng] = labels[latlng] || [];
-      labels[latlng].push($scope.tag);
+      labels[latlng].push(escape($scope.tag));
 
       //add circle to show location and add circle marker with zero radius so we can bind a label that is always visible
       new L.circle(here, distance, {color: '#DB5A55', weight: 2, opacity: .8}).addTo(map);
-      L.circleMarker(here, {color: '#DB5A55', opacity: 0}).setRadius(0).bindLabel($scope.tag, {noHide: true}).addTo(map);
+      L.circleMarker(here, {color: '#DB5A55', opacity: 0}).setRadius(0).bindLabel(($scope.tag), {noHide: true}).addTo(map);
 
       $scope.tag='';
+      console.log(labels);
 
       //wait five seconds to save in case other tags are added
       if (wait===undefined) {
@@ -123,10 +124,10 @@ var app = angular.module('microhoods.home', [])
           //insert circle
           new L.circle(latlng, 40, {color: '#DB5A55', weight: 2, opacity: .8}).addTo(map);
           //insert circle marker so we can always show label
-          var marker=L.circleMarker([latlng[0], markerlng], {color: '#DB5A55', opacity: 0}).setRadius(0).bindLabel(tags[tag].tag, {noHide: true}).addTo(map);   
+          var marker=L.circleMarker([latlng[0], markerlng], {color: '#DB5A55', opacity: 0}).setRadius(0).bindLabel(unescape(tags[tag].tag), {noHide: true}).addTo(map);   
         }
       };
-      request.send(JSON.stringify($scope.tag));
+      request.send(JSON.stringify(escape($scope.tag)));
       $scope.tag='';
     }
   };
@@ -176,7 +177,7 @@ var app = angular.module('microhoods.home', [])
           //insert circle
           new L.circle(latlng, 40, {color: '#DB5A55', weight: 2, opacity: .8}).addTo(map);
           //insert circle marker so we can always show label
-          var marker=L.circleMarker([latlng[0], markerlng], {color: '#DB5A55', opacity: 0}).setRadius(0).bindLabel(allCoords[coord].tag, {noHide: true}).addTo(map);   
+          var marker=L.circleMarker([latlng[0], markerlng], {color: '#DB5A55', opacity: 0}).setRadius(0).bindLabel(unescape(allCoords[coord].tag), {noHide: true}).addTo(map);   
         }
       } 
     };
@@ -213,7 +214,7 @@ var app = angular.module('microhoods.home', [])
         //insert circle
         new L.circle(latlng, 40, {color: '#DB5A55', weight: 2, opacity: .8}).addTo(map);
         //insert circle marker so we can always show label
-        var marker=L.circleMarker([latlng[0], markerlng], {color: '#DB5A55', opacity: 0}).setRadius(0).bindLabel(tags[tag].tag, {noHide: true}).addTo(map);   
+        var marker=L.circleMarker([latlng[0], markerlng], {color: '#DB5A55', opacity: 0}).setRadius(0).bindLabel(unescape(tags[tag].tag), {noHide: true}).addTo(map);   
       }
 
     };

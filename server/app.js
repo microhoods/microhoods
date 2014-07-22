@@ -18,7 +18,7 @@ if (process.env.PORT) {
 client = new pg.Client(settings.client);
 client.connect(function(err) {
   if (err) {
-    console.log(err);
+    console.log('postgres connection error', err);
   }
 });
 
