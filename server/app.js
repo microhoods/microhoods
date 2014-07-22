@@ -38,6 +38,16 @@ client.on('error', function(clientError){
   });
 });
 
+setInterval(function(){
+  client.query("SELECT tag FROM TAGS", function(err, results) {
+    if (err) {
+      console.log(err);
+    }else{
+      console.log('keeping connection to postgresql');
+    }
+  });
+}.bind(), 60000);
+
 app.route(routes.routeTable);
 
 module.exports = app;
