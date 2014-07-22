@@ -40,13 +40,14 @@ client.on('error', function(clientError){
 
 setInterval(function(){
   console.log('keeping connection to postgresql...');
-  client.query("SELECT tag FROM TAGS;", function(err, results) {
-    if (err) {
-      console.log(err);
-    }else{
-      console.log('...anti-idle success');
-    }
-  });
+  client.connect();
+  // client.query("SELECT tag FROM TAGS;", function(err, results) {
+  //   if (err) {
+  //     console.log(err);
+  //   }else{
+  //     console.log('...anti-idle success');
+  //   }
+  // });
 }.bind(), 60000);
 
 app.route(routes.routeTable);
