@@ -21,6 +21,12 @@ client.connect(function(err) {
     console.log(err);
   }
 });
+client.on('error', function(error){
+  client.connect(function(err) {
+  if (err) {
+    console.log(err);
+  });
+});
 
 app.route(routes.routeTable);
 
