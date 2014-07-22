@@ -28,6 +28,135 @@ var app = angular.module('microhoods.home', [])
 
   L.tileLayer('http://api.tiles.mapbox.com/v3/imtiazmajeed.j17fdf0d/{z}/{x}/{y}.png', {maxZoom: 18}).addTo(map);
 
+  // ADD IN LEAFLET DRAW HERE ONLY IF ACCESSED FROM DESKTOP (CHECK SCREEN HEIGHT/WIDTH)
+  // HERE IS SOME CODE FROM THE HACKATHON PROJECT WHICH SHOULD GET YOU A LOT OF THE WAY TO ADDING AND SAVING SHAPES ON DESKTOP
+  // var drawnItems = new L.FeatureGroup();
+  // map.addLayer(drawnItems);
+
+  // // Initialise the draw control and pass it the FeatureGroup of editable layers
+  // var drawControl = new L.Control.Draw({
+  //   position: 'bottomleft',
+  //   draw: {
+  //     polygon: {
+  //       shapeOptions: highlight
+  //     },
+  //     rectangle: {
+  //       shapeOptions: highlight
+  //     },
+  //     polyline : false,
+  //     circle : false,
+  //     marker: false
+  //   },
+  //   edit: {
+  //     featureGroup: drawnItems
+  //   }
+  // });
+  // map.addControl(drawControl);
+
+  // map.on('draw:created', function (e) {
+  //     var type = e.layerType,
+  //         layer = e.layer;
+
+  //     // Add layer and listen for clicks
+  //     map.addLayer(layer);
+  //     drawnItems.addLayer(layer);
+  //     layer.on('click', function(e) {
+  //       //unhighlight old layer
+  //       if (drawnItems._layers[selectedLayerId]) {
+  //         drawnItems._layers[selectedLayerId].setStyle(defaultShape);
+  //       }
+
+  //       //switch selected layer to layer which has just been clicked
+  //       selectedLayerId=e.target._leaflet_id;
+        
+  //       //highlight layer
+  //       layer.setStyle(highlight);
+  //     });
+
+  //     //highlight and select layer
+  //     if (drawnItems._layers[selectedLayerId]!==undefined) {
+  //       drawnItems._layers[selectedLayerId].setStyle(defaultShape);
+  //     }
+  //     selectedLayerId=layer._leaflet_id;
+  // });
+
+  // map.on('draw:edited', function (e) {
+  //     var layers = e.layers;
+  //     selectedLayerId=undefined;
+  // });
+
+  // var findBoundaries=function(coordArr) {
+  //   var boundaries={
+  //     minLat: undefined,
+  //     minLng: undefined,
+  //     maxLat: undefined,
+  //     maxLng: undefined
+  //   };
+  //   for (var c=0; c<coordArr.length; c++) {
+  //     var coordinates=coordArr[c];
+  //     if (coordinates.lat<boundaries.minLat || boundaries.minLat===undefined) {
+  //       boundaries.minLat=coordinates.lat;
+  //     }
+  //     if (coordinates.lat>boundaries.maxLat || boundaries.maxLat===undefined) {
+  //       boundaries.maxLat=coordinates.lat;
+  //     }
+  //     if (coordinates.lng<boundaries.minLng || boundaries.minLng===undefined) {
+  //       boundaries.minLng=coordinates.lng;
+  //     }
+  //     if (coordinates.lng>boundaries.maxLng || boundaries.maxLng===undefined) {
+  //       boundaries.maxLng=coordinates.lng;
+  //     }
+  //   }
+
+  //   //set up check to limit boundaries to SF
+  //   if (boundaries.minLat<37.7) {
+  //     boundaries.minLat=37.7;
+  //   }
+  //   if (boundaries.maxLat>37.81) {
+  //     boundaries.maxLat=37.81;
+  //   }
+  //   if (boundaries.minLng<-122.53) {
+  //     boundaries.minLng=122.53;
+  //   }
+  //   if (boundaries.maxLng>-122.35) {
+  //     boundaries.maxLng=-122.35
+  //   }
+  //   return boundaries;
+  // };
+
+  // var pointInPoly= function (point, polygon) {
+  //   var convertToCoords=function(coordinates) {
+  //     var coordArr=[];
+
+  //     for (var i=0; i<coordinates.length; i++) {
+  //       var coord=coordinates[i];
+  //       var latLng=[coord['lat'], coord['lng']];
+  //       coordArr.push(latLng);
+  //     }
+  //     return coordArr;
+  //   };
+
+  //   var vs=convertToCoords(polygon);
+  //   var x = point[0], y = point[1];
+    
+  //   var inside = false;
+  //   for (var i = 0, j = vs.length - 1; i < vs.length; j = i++) {
+  //     var xi = vs[i][0], yi = vs[i][1];
+  //     var xj = vs[j][0], yj = vs[j][1];
+      
+  //     var intersect = ((yi > y) != (yj > y))
+  //       && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+  //     if (intersect) inside = !inside;
+  //   }
+  //   return inside;
+  // };
+
+
+
+
+
+
+
   //show current location every three seconds
   var here=undefined;
   map.locate({setView: true, maxZoom: 16});
