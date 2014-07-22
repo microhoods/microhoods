@@ -22,7 +22,7 @@ process.on('uncaughtException', function(err) {
 });
 
 // connect to postgresql database
-client = new pg.Client(settings.client);
+var client = new pg.Client(settings.client);
 client.connect(function(error) {
   if (error) {
     console.log('postgres connection error', error);
@@ -40,18 +40,13 @@ client.on('error', function(clientError){
 
 setInterval(function(){
   console.log('keeping connection to postgresql...');
-  client.connect(function(error) {
-    if (error) {
-      console.log('postgres connection error', error);
+  client.query("SELECT tag FROM TAGS;", function(err, results) {
+    if (err) {
+      console.log(err);
+    }else{
+      console.log('...anti-idle success');
     }
   });
-  // client.query("SELECT tag FROM TAGS;", function(err, results) {
-  //   if (err) {
-  //     console.log(err);
-  //   }else{
-  //     console.log('...anti-idle success');
-  //   }
-  // });
 }.bind(), 60000);
 
 app.route(routes.routeTable);
