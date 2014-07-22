@@ -1,3 +1,4 @@
+var pg = require('pg');
 var settings = require('../config/settings.js');  
 
 // This does variable substitution on a string. It scans through the string 
@@ -13,86 +14,105 @@ String.prototype.supplant = function(o) {
   );
 };
 
-// query to add a tag
-var addTag=function(googleId, tagName, coordinates) {
-  //coordinates passed in as array of [lat, lng]
-  client.query("INSERT INTO TAGS (user_id, tag, coordinates) VALUES( \
-    (SELECT user_id FROM USERS \
-    WHERE google_id='{googleId}'), \
-    '{tagName}', \
-    '{coordinates})');".supplant({googleId: googleId, tagName: tagName, coordinates: coordinates}), 
-  function(err) {
-    if (err) {
-      console.log('addTag error', err);
-      throw err;
-    }
-    reply();
-  });
-}
-
 module.exports = { 
+  // serve index page
   index: { 
     handler: function(request, reply) { 
       reply.file(settings.root + '/www/index.html');
     }
   }, 
 
-  // A user can add multiple tags at a time. This iterates over each tag and invokes
-  // the add tag function defined above. 
+  // users can add multiple tags at a time - this iterates over each tag and invokes
+  // the add tag function defined above 
   addTag: {
     handler: function(request, reply) {
-      //loop over each coordinate
+      // loop over each coordinate
       for (var coord in request.payload.coordinates) {
         var tags = request.payload.coordinates;
-        //loop over each tag
+        // loop over each tag
         for (var i = 0; i < tags[coord].length; i++) {
-          //add tag
-          addTag(request.payload.googleId, tags[coord][i], coord);
+          // wrapper for postgresql asynch query
+          (function(i) { 
+            // open postgresql pool connection
+            pg.connect(settings.client, function(err, client, done) {
+              if (err) {
+                return console.error('error fetching client from pool', err);
+              }
+              // query to add tags
+              client.query("INSERT INTO TAGS (user_id, tag, coordinates) VALUES( \
+                (SELECT user_id FROM USERS \
+                WHERE google_id='{googleId}'), \
+                '{tagName}', \
+                '{coordinates})');".supplant({googleId: request.payload.googleId, tagName: tags[coord][i], coordinates: coord}), 
+                function(err, result) {
+                  // close postgresql pool connection
+                  done(); 
+                  if (err) {
+                    return console.error('error running query', err); 
+                  }
+                  // reply to client
+                  reply(); 
+                }
+              );
+            });
+          })(i);
         }
-      }
-      reply();
+      } 
     }
   },
 
   // query to add a new user
   addUser: {
     handler: function(request, reply) {
-      var payload = JSON.parse(request.payload);
-      client.query("INSERT INTO USERS (username, google_id) \
-        SELECT '{googleDisplayName}', '{googleId}' \
-          WHERE NOT EXISTS (SELECT google_id FROM USERS \
-          WHERE google_id='{googleId}');".supplant({googleDisplayName: payload.googleDisplayName, googleId: payload.googleId}), 
-        function(err, results) {
-          if (err) {
-            console.log('addUser error', err);
-            throw(err);
-          }
-          reply();
+      // parse incoming payload
+      var payload = JSON.parse(request.payload); 
+      // open postgresql pool connection
+      pg.connect(settings.client, function(err, client, done) {
+        if (err) {
+          return console.error('error fetching client from pool', err);
         }
-      );
+        // query to insert users
+        client.query("INSERT INTO USERS (username, google_id) \
+          SELECT '{googleDisplayName}', '{googleId}' \
+            WHERE NOT EXISTS (SELECT google_id FROM USERS \
+            WHERE google_id='{googleId}');".supplant({googleDisplayName: payload.googleDisplayName, googleId: payload.googleId}), 
+          function(err, results) {
+            // close postgresql pool connection
+            done(); 
+            if (err) {
+              return console.error('error running query', err); 
+            }
+            // reply to client
+            reply();
+          }
+        );
+      });
     }
   }, 
 
   // query to find user tags
   findUserTags: {
     handler: function(request, reply) {
-      client.query("SELECT tag, coordinates FROM TAGS \
-        WHERE user_id=( \
-          SELECT user_id from USERS \
-          WHERE google_id='{google_id}');".supplant({google_id: request.payload }),
-        function(err, results) {
-          if (err) {
-            console.log('findUserTags error', err);
-            console.log(err);
-            reply();
-          } else {
-            console.log('results');
-            console.log(results);
-            console.log('google_id', request.payload);
+      // open postgresql pool connection
+      pg.connect(settings.client, function(err, client, done) {
+        if (err) {
+          return console.error('error fetching client from pool', err);
+        }   
+        client.query("SELECT tag, coordinates FROM TAGS \
+          WHERE user_id=( \
+            SELECT user_id from USERS \
+            WHERE google_id='{google_id}');".supplant({google_id: request.payload }),
+          function(err, results) {
+            // close postgresql pool connection
+            done(); 
+            if (err) {
+              return console.error('error running query', err); 
+            }
+            // reply to client
             reply(JSON.stringify(results.rows));
           }
-        }
-      );      
+        ); 
+      });     
     }  
   }
 };

@@ -14,22 +14,6 @@ if (process.env.PORT) {
   app._port = process.env.PORT;
 }
 
-// connect to postgresql database
-client = new pg.Client(settings.client);
-client.connect(function(error) {
-  if (error) {
-    console.log('postgres connection error', error);
-  }
-});
-client.on('error', function(clientError){
-  console.log(clientError);
-  console.log(clientError.stack);
-  client.connect(function(connectError) {
-  if (connectError) {
-    console.log(connectError);
-  });
-});
-
 app.route(routes.routeTable);
 
 module.exports = app;
