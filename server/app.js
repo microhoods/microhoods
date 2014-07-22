@@ -16,15 +16,17 @@ if (process.env.PORT) {
 
 // connect to postgresql database
 client = new pg.Client(settings.client);
-client.connect(function(err) {
-  if (err) {
-    console.log('postgres connection error', err);
+client.connect(function(error) {
+  if (error) {
+    console.log('postgres connection error', error);
   }
 });
-client.on('error', function(error){
-  client.connect(function(err) {
-  if (err) {
-    console.log(err);
+client.on('error', function(clientError){
+  console.log(clientError);
+  console.log(clientError.stack);
+  client.connect(function(connectError) {
+  if (connectError) {
+    console.log(connectError);
   });
 });
 
