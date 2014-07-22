@@ -39,7 +39,7 @@ client.on('error', function(clientError){
 });
 
 setInterval(function(){
-  client.query("SELECT tag FROM TAGS", function(err, results) {
+  client.query("SELECT tag FROM TAGS;", function(err, results) {
     if (err) {
       console.log(err);
     }else{
