@@ -1,3 +1,29 @@
+/* 
+
+Dear pure soul,
+
+Before you ask why in the world we are connecting to the 
+database each and every time we want to query the database, I 
+dare the next team to try to fix it... But I warn you, it won't be easy!
+
+Basically, the PostGreSQL database is running on a virtual machine on
+azure and our app is also deployed on azure. They both work perfectly when 
+separate. 
+
+However, every avenue, block, street, alleyway, gutter, sewer we
+went down trying to solve this problem didn't work. Long story short,
+the connection gets lost between the deployed app on azure and the 
+database on the virtual machine. 
+
+I urge you to not waste time trying to fix this, but simply enjoy the 
+fruits of our efforts. Like the redness in apples, it was our passion
+for not wanting to screw the next team over that kept us going.
+
+Remember, red for passion ~ Imtiaz
+
+*/
+
+
 var pg = require('pg');
 var settings = require('../config/settings.js');  
 
