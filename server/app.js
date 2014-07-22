@@ -14,32 +14,6 @@ if (process.env.PORT) {
   app._port = process.env.PORT;
 }
 
-//catch errors
-process.on('uncaughtException', function(err) {
-  // handle the error safely
-  console.log('uncaught error: ');
-  console.log(err);
-});
-
-// connect to postgresql database
-client = new pg.Client(settings.client);
-client.connect(function(error) {
-  if (error) {
-    console.log('postgres connection error', error);
-  }
-});
-
-// setInterval(function(){
-//   console.log('keeping connection to postgresql...');
-//   client.query("SELECT tag FROM TAGS;", function(err, results) {
-//     if (err) {
-//       console.log(err);
-//     }else{
-//       console.log('...anti-idle success');
-//     }
-//   });
-// }.bind(), 60000);
-
 app.route(routes.routeTable);
 
 module.exports = app;
