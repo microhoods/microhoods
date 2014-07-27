@@ -28,63 +28,65 @@ var app = angular.module('microhoods.home', [])
 
   L.tileLayer('http://api.tiles.mapbox.com/v3/imtiazmajeed.j17fdf0d/{z}/{x}/{y}.png', {maxZoom: 18}).addTo(map);
 
-  // ADD IN LEAFLET DRAW HERE ONLY IF ACCESSED FROM DESKTOP (CHECK SCREEN HEIGHT/WIDTH)
-  // HERE IS SOME CODE FROM THE HACKATHON PROJECT WHICH SHOULD GET YOU A LOT OF THE WAY TO ADDING AND SAVING SHAPES ON DESKTOP
-  // var drawnItems = new L.FeatureGroup();
-  // map.addLayer(drawnItems);
+  // ADD IN LEAFLET DRAW HERE ONLY IF ACCESSED FROM DESKTOP
+  if(typeof window.orientation === 'undefined'){
+    var selectedLayerId;
+    var drawnItems = new L.FeatureGroup();
+    map.addLayer(drawnItems);
 
-  // // Initialise the draw control and pass it the FeatureGroup of editable layers
-  // var drawControl = new L.Control.Draw({
-  //   position: 'bottomleft',
-  //   draw: {
-  //     polygon: {
-  //       shapeOptions: highlight
-  //     },
-  //     rectangle: {
-  //       shapeOptions: highlight
-  //     },
-  //     polyline : false,
-  //     circle : false,
-  //     marker: false
-  //   },
-  //   edit: {
-  //     featureGroup: drawnItems
-  //   }
-  // });
-  // map.addControl(drawControl);
+    // Initialise the draw control and pass it the FeatureGroup of editable layers
+    var drawControl = new L.Control.Draw({
+      position: 'topleft',
+      draw: {
+        polygon: {
+          shapeOptions: highlight
+        },
+        rectangle: {
+          shapeOptions: highlight
+        },
+        polyline : false,
+        circle : false,
+        marker: false
+      },
+      edit: {
+        featureGroup: drawnItems
+      }
+    });
+    map.addControl(drawControl);
 
-  // map.on('draw:created', function (e) {
-  //     var type = e.layerType,
-  //         layer = e.layer;
+    map.on('draw:created', function (e) {
+      var type = e.layerType,
+          layer = e.layer;
 
-  //     // Add layer and listen for clicks
-  //     map.addLayer(layer);
-  //     drawnItems.addLayer(layer);
-  //     layer.on('click', function(e) {
-  //       //unhighlight old layer
-  //       if (drawnItems._layers[selectedLayerId]) {
-  //         drawnItems._layers[selectedLayerId].setStyle(defaultShape);
-  //       }
+      // Add layer and listen for clicks
+      map.addLayer(layer);
+      drawnItems.addLayer(layer);
+      layer.on('click', function(e) {
+        //unhighlight old layer
+        if (drawnItems._layers[selectedLayerId]) {
+          drawnItems._layers[selectedLayerId].setStyle(defaultShape);
+        }
 
-  //       //switch selected layer to layer which has just been clicked
-  //       selectedLayerId=e.target._leaflet_id;
+        //switch selected layer to layer which has just been clicked
+        selectedLayerId=e.target._leaflet_id;
         
-  //       //highlight layer
-  //       layer.setStyle(highlight);
-  //     });
+        //highlight layer
+        layer.setStyle(highlight);
+      });
 
-  //     //highlight and select layer
-  //     if (drawnItems._layers[selectedLayerId]!==undefined) {
-  //       drawnItems._layers[selectedLayerId].setStyle(defaultShape);
-  //     }
-  //     selectedLayerId=layer._leaflet_id;
-  // });
+      //highlight and select layer
+      if (drawnItems._layers[selectedLayerId]!==undefined) {
+        drawnItems._layers[selectedLayerId].setStyle(defaultShape);
+      }
+      selectedLayerId=layer._leaflet_id;
+    });
 
-  // map.on('draw:edited', function (e) {
-  //     var layers = e.layers;
-  //     selectedLayerId=undefined;
-  // });
+    map.on('draw:edited', function (e) {
+      var layers = e.layers;
+      selectedLayerId=undefined;
+    });
 
+  }
   // var findBoundaries=function(coordArr) {
   //   var boundaries={
   //     minLat: undefined,
